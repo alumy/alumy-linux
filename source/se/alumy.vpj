@@ -1,0 +1,1281 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+    Version="10.0"
+    VendorName="SlickEdit"
+    TemplateName="GNU C/C++"
+    WorkingDir="."
+    BuildSystem="vsbuild">
+    <Config
+        Name="Debug"
+        Type="gnuc"
+        DebugCallbackName="gdb"
+        Version="1"
+        OutputFile="%bdalumy.exe"
+        CompilerConfigName="Latest Version">
+        <Menu>
+            <Target
+                Name="Compile"
+                MenuCaption="&amp;Compile"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                OutputExts="*.o"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='g++ -c %xup  %defd -g -o "%bd%n%oe" %i "%f"'/>
+            </Target>
+            <Target
+                Name="Link"
+                MenuCaption="&amp;Link"
+                ShowOnMenu="Never"
+                Dialog="_gnuc_options_form Link"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='g++ %xup -g -o "%o" %f %libs'/>
+            </Target>
+            <Target
+                Name="Build"
+                MenuCaption="&amp;Build"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t build'/>
+            </Target>
+            <Target
+                Name="Rebuild"
+                MenuCaption="&amp;Rebuild"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t rebuild'/>
+            </Target>
+            <Target
+                Name="Debug"
+                MenuCaption="&amp;Debug"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveNone"
+                RunFromDir="%rw">
+                <Exec CmdLine='vsdebugio -prog "%o"'/>
+            </Target>
+            <Target
+                Name="Execute"
+                MenuCaption="E&amp;xecute"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%o"'/>
+            </Target>
+            <Target
+                Name="dash"
+                MenuCaption="-"
+                Deletable="0">
+                <Exec/>
+            </Target>
+            <Target
+                Name="GNU C Options"
+                MenuCaption="GNU C &amp;Options..."
+                ShowOnMenu="HideIfNoCmdLine"
+                Deletable="0"
+                SaveOption="SaveNone">
+                <Exec
+                    CmdLine="gnucoptions"
+                    Type="Slick-C"/>
+            </Target>
+            <Target
+                Name="PC-Lint"
+                MenuCaption="&amp;PC-Lint"
+                RunFromDir="%rp/../pclint"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveNone"
+                ClearProcessBuffer="1">
+                <Exec CmdLine="C:\lint\lint-nt.exe -u %rp/../pclint/std.lnt %f"/>
+            </Target>
+        </Menu>
+        <Rules Name="Compile">
+            <Rule
+                InputExts="*.ada"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gnat -g -c -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.adb"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gnat -g -c -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.f"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gfortran -c -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.f90"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gfortran -c -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.d"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gdc -c -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+        </Rules>
+        <List Name="GNUC Options">
+            <Item
+                Name="LinkerOutputType"
+                Value="Executable"/>
+        </List>
+    </Config>
+    <Config
+        Name="Release"
+        Type="gnuc"
+        DebugCallbackName="gdb"
+        Version="1"
+        OutputFile="%bdalumy.exe"
+        CompilerConfigName="Latest Version">
+        <Menu>
+            <Target
+                Name="Compile"
+                MenuCaption="&amp;Compile"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                OutputExts="*.o"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='g++ -c %xup %defd -o "%bd%n%oe" %i "%f"'/>
+            </Target>
+            <Target
+                Name="Link"
+                MenuCaption="&amp;Link"
+                ShowOnMenu="Never"
+                Dialog="_gnuc_options_form Link"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='g++ %xup -o "%o" %f %libs'/>
+            </Target>
+            <Target
+                Name="Build"
+                MenuCaption="&amp;Build"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t build'/>
+            </Target>
+            <Target
+                Name="Rebuild"
+                MenuCaption="&amp;Rebuild"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t rebuild'/>
+            </Target>
+            <Target
+                Name="Debug"
+                MenuCaption="&amp;Debug"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveNone"
+                RunFromDir="%rw">
+                <Exec CmdLine='vsdebugio -prog "%o"'/>
+            </Target>
+            <Target
+                Name="Execute"
+                MenuCaption="E&amp;xecute"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%o"'/>
+            </Target>
+            <Target
+                Name="dash"
+                MenuCaption="-"
+                Deletable="0">
+                <Exec/>
+            </Target>
+            <Target
+                Name="GNU C Options"
+                MenuCaption="GNU C &amp;Options..."
+                ShowOnMenu="HideIfNoCmdLine"
+                Deletable="0"
+                SaveOption="SaveNone">
+                <Exec
+                    CmdLine="gnucoptions"
+                    Type="Slick-C"/>
+            </Target>
+            <Target
+                Name="PC-Lint"
+                MenuCaption="&amp;PC-Lint"
+                RunFromDir="%rp/../pclint"
+                CaptureOutputWith="ProcessBuffer"
+                SaveOption="SaveNone"
+                ClearProcessBuffer="1">
+                <Exec CmdLine="C:\lint\lint-nt.exe -u %rp/../pclint/std.lnt %f"/>
+            </Target>
+        </Menu>
+        <Rules Name="Compile">
+            <Rule
+                InputExts="*.ada"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gnat -O -c -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.adb"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gnat -O -c -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.f"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gfortran -O -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.f90"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gfortran -O -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.d"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gdc -c -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+        </Rules>
+        <List Name="GNUC Options">
+            <Item
+                Name="LinkerOutputType"
+                Value="Executable"/>
+        </List>
+    </Config>
+    <CustomFolders>
+        <Folder
+            Name="Source Files"
+            Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go"
+            GUID="{E1FA086E-8D31-491E-C07F-3B6D1647DC83}"></Folder>
+        <Folder
+            Name="Header Files"
+            Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
+            GUID="{F9EF0057-C1BF-4106-4EFB-7AE2D81D8188}"></Folder>
+        <Folder
+            Name="Resource Files"
+            Filters="*.ico;*.cur;*.dlg"
+            GUID="{C705A77A-FC15-42E6-5389-167B4F748187}"/>
+        <Folder
+            Name="Bitmaps"
+            Filters="*.bmp"
+            GUID="{CE935B15-CE48-433B-6D81-B6B264774F87}"/>
+        <Folder
+            Name="Other Files"
+            Filters=""
+            GUID="{3BEAFC28-9AA9-43F2-9229-86A3333CE8B6}"/>
+    </CustomFolders>
+    <Files AutoFolders="DirectoryView">
+        <Folder Name="..">
+            <F N="../alumy.c"/>
+            <F N="../CMakeLists.txt"/>
+            <F N="../fifo.c"/>
+            <F N="../pool.c"/>
+            <F N="../rbtree.c"/>
+            <F N="../version.c"/>
+        </Folder>
+        <Folder Name="../base64">
+            <F N="../base64/base64.c"/>
+            <F N="../base64/CMakeLists.txt"/>
+        </Folder>
+        <Folder Name="../bcc">
+            <F N="../bcc/bcc.c"/>
+            <F N="../bcc/CMakeLists.txt"/>
+        </Folder>
+        <Folder Name="../bcd">
+            <F N="../bcd/bcd.c"/>
+            <F N="../bcd/CMakeLists.txt"/>
+        </Folder>
+        <Folder Name="../card">
+            <Folder Name="ic">
+                <Folder Name="emv">
+                    <F N="../card/ic/emv/emv.c"/>
+                </Folder>
+                <Folder Name="mifare">
+                    <F N="../card/ic/mifare/mifare.c"/>
+                </Folder>
+                <F N="../card/ic/ic_card.c"/>
+            </Folder>
+            <Folder Name="msr">
+                <F N="../card/msr/msr.c"/>
+            </Folder>
+            <F N="../card/bank_card.c"/>
+            <F N="../card/CMakeLists.txt"/>
+        </Folder>
+        <Folder Name="../cmake">
+            <Folder Name="toolchain">
+                <F N="../cmake/toolchain/arm-fsl-linux-gnueabi.cmake"/>
+                <F N="../cmake/toolchain/arm-none-eabi.cmake"/>
+                <F N="../cmake/toolchain/clang.cmake"/>
+                <F N="../cmake/toolchain/gcc.cmake"/>
+            </Folder>
+            <F N="../cmake/message.cmake"/>
+        </Folder>
+        <Folder Name="../crc">
+            <F N="../crc/CMakeLists.txt"/>
+            <F N="../crc/crc16.c"/>
+            <F N="../crc/crc24.c"/>
+            <F N="../crc/crc32.c"/>
+            <F N="../crc/crc8.c"/>
+        </Folder>
+        <Folder Name="../crypto">
+            <F N="../crypto/CMakeLists.txt"/>
+            <F N="../crypto/crypto.c"/>
+        </Folder>
+        <Folder Name="../http">
+            <F N="../http/restful.c"/>
+        </Folder>
+        <Folder Name="../include">
+            <Folder Name="alumy">
+                <Folder Name="http">
+                    <F N="../include/alumy/http/restful.h"/>
+                </Folder>
+                <Folder Name="network">
+                    <Folder Name="wireless">
+                        <F N="../include/alumy/network/wireless/quality.h"/>
+                    </Folder>
+                    <F N="../include/alumy/network/ftp.h"/>
+                    <F N="../include/alumy/network/ipv4.h"/>
+                    <F N="../include/alumy/network/manager.h"/>
+                    <F N="../include/alumy/network/tcp.h"/>
+                    <F N="../include/alumy/network/wireless.h"/>
+                </Folder>
+                <Folder Name="osal">
+                    <F N="../include/alumy/osal/network.h"/>
+                </Folder>
+                <Folder Name="sys">
+                    <F N="../include/alumy/sys/grp.h"/>
+                    <F N="../include/alumy/sys/process.h"/>
+                    <F N="../include/alumy/sys/sysinfo.h"/>
+                    <F N="../include/alumy/sys/user.h"/>
+                    <F N="../include/alumy/sys/user_grp.h"/>
+                </Folder>
+                <F N="../include/alumy/ascii.h"/>
+                <F N="../include/alumy/bank_card.h"/>
+                <F N="../include/alumy/base.h"/>
+                <F N="../include/alumy/base64.h"/>
+                <F N="../include/alumy/bcc.h"/>
+                <F N="../include/alumy/bcd.h"/>
+                <F N="../include/alumy/config.h"/>
+                <F N="../include/alumy/crc.h"/>
+                <F N="../include/alumy/diag.h"/>
+                <F N="../include/alumy/errno.h"/>
+                <F N="../include/alumy/expect.h"/>
+                <F N="../include/alumy/fifo.h"/>
+                <F N="../include/alumy/format_color.h"/>
+                <F N="../include/alumy/list.h"/>
+                <F N="../include/alumy/log.h"/>
+                <F N="../include/alumy/mem.h"/>
+                <F N="../include/alumy/network.h"/>
+                <F N="../include/alumy/pool.h"/>
+                <F N="../include/alumy/qrcode.h"/>
+                <F N="../include/alumy/rbtree.h"/>
+                <F N="../include/alumy/string.h"/>
+                <F N="../include/alumy/sys.h"/>
+                <F N="../include/alumy/time.h"/>
+                <F N="../include/alumy/tlv.h"/>
+                <F N="../include/alumy/types.h"/>
+                <F N="../include/alumy/version.h"/>
+            </Folder>
+            <F N="../include/alumy.h"/>
+        </Folder>
+        <Folder Name="../mem">
+            <F N="../mem/CMakeLists.txt"/>
+            <F N="../mem/mem.c"/>
+        </Folder>
+        <Folder Name="../network">
+            <Folder Name="wireless">
+                <F N="../network/wireless/quality.c"/>
+            </Folder>
+            <F N="../network/CMakeLists.txt"/>
+        </Folder>
+        <Folder Name="../osal">
+            <Folder Name="linux">
+                <Folder Name="network">
+                    <Folder Name="ftp">
+                        <F N="../osal/linux/network/ftp/ftp.c"/>
+                        <F N="../osal/linux/network/ftp/ftp_curl.h"/>
+                        <F N="../osal/linux/network/ftp/ftpdel.c"/>
+                        <F N="../osal/linux/network/ftp/ftpget.c"/>
+                        <F N="../osal/linux/network/ftp/ftpput.c"/>
+                    </Folder>
+                    <F N="../osal/linux/network/ipv4.c"/>
+                    <F N="../osal/linux/network/manager.c"/>
+                    <F N="../osal/linux/network/resolv.c"/>
+                    <F N="../osal/linux/network/tcp.c"/>
+                </Folder>
+                <F N="../osal/linux/log.c"/>
+            </Folder>
+            <Folder Name="none">
+                <F N="../osal/none/osal.c"/>
+            </Folder>
+            <F N="../osal/CMakeLists.txt"/>
+        </Folder>
+        <Folder Name="../pclint">
+            <F N="../pclint/co-gcc.h"/>
+            <F N="../pclint/empty.c"/>
+            <F N="../pclint/lint_cmac.h"/>
+            <F N="../pclint/lint_cppmac.h"/>
+        </Folder>
+        <Folder Name="../../platform">
+            <Folder Name="x86_64">
+                <Folder Name="source">
+                    <Folder Name="curl-7.60.0">
+                        <Folder Name="CMake">
+                            <F N="../../platform/x86_64/source/curl-7.60.0/CMake/CurlTests.c"/>
+                        </Folder>
+                        <Folder Name="docs">
+                            <Folder Name="cmdline-opts">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/cmdline-opts/CMakeLists.txt"/>
+                            </Folder>
+                            <Folder Name="examples">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/10-at-a-time.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/anyauthput.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/cacertinmem.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/certinfo.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/chkspeed.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/cookie_interface.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/curlgtk.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/curlx.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/debug.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/evhiperfifo.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/externalsocket.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/fileupload.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/fopen.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ftp-wildcard.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ftpget.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ftpgetinfo.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ftpgetresp.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ftpsget.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ftpupload.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ftpuploadfrommem.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ftpuploadresume.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/getinfo.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/getinmemory.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/getredirect.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/ghiper.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/hiperfifo.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/href_extractor.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/htmltidy.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/http-post.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/http2-download.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/http2-serverpush.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/http2-upload.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/httpcustomheader.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/httpput.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/https.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-append.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-copy.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-create.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-delete.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-examine.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-fetch.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-list.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-lsub.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-multi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-noop.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-search.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-ssl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-store.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/imap-tls.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/multi-app.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/multi-debugcallback.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/multi-double.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/multi-formadd.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/multi-post.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/multi-single.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/multi-uv.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/multithread.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/opensslthreadlock.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/persistant.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-dele.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-list.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-multi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-noop.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-retr.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-ssl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-stat.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-tls.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-top.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/pop3-uidl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/post-callback.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/postinmemory.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/postit2-formadd.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/postit2.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/progressfunc.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/resolve.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/rtsp.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/sampleconv.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/sendrecv.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/sepheaders.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/sessioninfo.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/sftpget.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/sftpuploadresume.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/shared-connection-cache.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/simple.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/simplepost.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/simplessl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/smooth-gtk-thread.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/smtp-expn.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/smtp-mail.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/smtp-mime.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/smtp-multi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/smtp-ssl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/smtp-tls.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/smtp-vrfy.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/sslbackend.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/synctime.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/threaded-shared-conn.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/threaded-ssl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/url2file.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/usercertinmem.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/examples/xmlstream.c"/>
+                            </Folder>
+                            <Folder Name="libcurl">
+                                <Folder Name="opts">
+                                    <F N="../../platform/x86_64/source/curl-7.60.0/docs/libcurl/opts/CMakeLists.txt"/>
+                                </Folder>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/docs/libcurl/CMakeLists.txt"/>
+                            </Folder>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/docs/CMakeLists.txt"/>
+                        </Folder>
+                        <Folder Name="include">
+                            <Folder Name="curl">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/include/curl/curl.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/include/curl/curlver.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/include/curl/easy.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/include/curl/mprintf.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/include/curl/multi.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/include/curl/stdcheaders.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/include/curl/system.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/include/curl/typecheck-gcc.h"/>
+                            </Folder>
+                        </Folder>
+                        <Folder Name="lib">
+                            <Folder Name="vauth">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/cleartext.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/cram.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/digest.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/digest.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/digest_sspi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/krb5_gssapi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/krb5_sspi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/ntlm.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/ntlm.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/ntlm_sspi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/oauth2.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/spnego_gssapi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/spnego_sspi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/vauth.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vauth/vauth.h"/>
+                            </Folder>
+                            <Folder Name="vtls">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/axtls.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/axtls.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/cyassl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/cyassl.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/darwinssl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/darwinssl.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/gskit.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/gskit.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/gtls.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/gtls.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/mbedtls.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/mbedtls.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/nss.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/nssg.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/openssl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/openssl.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/polarssl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/polarssl.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/polarssl_threadlock.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/polarssl_threadlock.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/schannel.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/schannel.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/schannel_verify.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/vtls.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/lib/vtls/vtls.h"/>
+                            </Folder>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/amigaos.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/amigaos.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/arpa_telnet.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/asyn-ares.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/asyn-thread.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/asyn.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/base64.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/CMakeLists.txt"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-amigaos.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-dos.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-mac.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-os400.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-riscos.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-symbian.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-tpf.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-vxworks.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-win32.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/config-win32ce.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/conncache.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/conncache.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/connect.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/connect.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/content_encoding.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/content_encoding.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/cookie.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/cookie.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_addrinfo.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_addrinfo.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_base64.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_ctype.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_ctype.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_des.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_des.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_endian.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_endian.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_fnmatch.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_fnmatch.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_gethostname.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_gethostname.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_gssapi.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_gssapi.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_hmac.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_ldap.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_md4.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_md5.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_memory.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_memrchr.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_memrchr.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_multibyte.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_multibyte.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_ntlm_core.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_ntlm_core.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_ntlm_wb.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_ntlm_wb.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_path.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_path.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_printf.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_range.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_range.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_rtmp.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_rtmp.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_sasl.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_sasl.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_sec.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_setup.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_setup_once.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_sha256.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_sspi.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_sspi.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_threads.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curl_threads.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/curlx.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/dict.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/dict.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/dotdot.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/dotdot.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/easy.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/easyif.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/escape.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/escape.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/file.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/file.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/fileinfo.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/fileinfo.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/formdata.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/formdata.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/ftp.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/ftp.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/ftplistparser.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/ftplistparser.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/getenv.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/getinfo.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/getinfo.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/gopher.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/gopher.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hash.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hash.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hmac.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hostasyn.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hostcheck.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hostcheck.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hostip.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hostip.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hostip4.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hostip6.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/hostsyn.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http2.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http2.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_chunks.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_chunks.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_digest.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_digest.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_negotiate.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_negotiate.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_ntlm.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_ntlm.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_proxy.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/http_proxy.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/idn_win32.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/if2ip.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/if2ip.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/imap.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/imap.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/inet_ntop.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/inet_ntop.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/inet_pton.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/inet_pton.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/krb5.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/ldap.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/llist.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/llist.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/md4.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/md5.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/memdebug.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/memdebug.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/mime.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/mime.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/mprintf.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/multi.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/multihandle.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/multiif.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/netrc.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/netrc.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/non-ascii.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/non-ascii.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/nonblock.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/nonblock.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/nwlib.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/nwos.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/openldap.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/parsedate.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/parsedate.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/pingpong.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/pingpong.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/pipeline.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/pipeline.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/pop3.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/pop3.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/progress.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/progress.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/rand.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/rand.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/rtsp.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/rtsp.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/security.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/select.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/select.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/sendf.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/sendf.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/setopt.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/setopt.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/setup-os400.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/setup-vms.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/sha256.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/share.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/share.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/sigpipe.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/slist.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/slist.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/smb.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/smb.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/smtp.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/smtp.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/sockaddr.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/socks.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/socks.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/socks_gssapi.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/socks_sspi.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/speedcheck.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/speedcheck.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/splay.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/splay.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/ssh-libssh.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/ssh.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/ssh.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strcase.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strcase.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strdup.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strdup.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strerror.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strerror.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strtok.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strtok.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strtoofft.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/strtoofft.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/system_win32.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/system_win32.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/telnet.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/telnet.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/tftp.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/tftp.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/timeval.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/timeval.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/transfer.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/transfer.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/url.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/url.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/urldata.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/version.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/warnless.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/warnless.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/wildcard.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/wildcard.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/x509asn1.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/lib/x509asn1.h"/>
+                        </Folder>
+                        <Folder Name="packages">
+                            <Folder Name="OS400">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/OS400/ccsidcurl.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/OS400/ccsidcurl.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/OS400/os400sys.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/OS400/os400sys.h"/>
+                            </Folder>
+                            <Folder Name="vms">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/vms/curl_crtl_init.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/vms/curlmsg.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/vms/curlmsg_vms.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/vms/report_openssl_version.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/packages/vms/vms_eco_level.h"/>
+                            </Folder>
+                        </Folder>
+                        <Folder Name="projects">
+                            <F N="../../platform/x86_64/source/curl-7.60.0/projects/wolfssl_options.h"/>
+                        </Folder>
+                        <Folder Name="src">
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/CMakeLists.txt"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/slist_wc.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/slist_wc.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_binmode.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_binmode.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_bname.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_bname.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_dbg.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_dbg.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_hdr.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_hdr.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_prg.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_prg.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_rea.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_rea.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_see.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_see.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_wrt.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cb_wrt.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cfgable.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_cfgable.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_convert.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_convert.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_dirhie.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_dirhie.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_doswin.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_doswin.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_easysrc.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_easysrc.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_filetime.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_filetime.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_formparse.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_formparse.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_getparam.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_getparam.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_getpass.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_getpass.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_help.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_help.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_helpers.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_helpers.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_homedir.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_homedir.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_hugehelp.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_libinfo.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_libinfo.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_main.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_main.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_metalink.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_metalink.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_msgs.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_msgs.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_operate.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_operate.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_operhlp.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_operhlp.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_panykey.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_panykey.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_paramhlp.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_paramhlp.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_parsecfg.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_parsecfg.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_sdecls.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_setopt.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_setopt.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_setup.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_sleep.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_sleep.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_strdup.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_strdup.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_urlglob.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_urlglob.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_util.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_util.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_version.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_vms.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_vms.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_writeout.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_writeout.h"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_xattr.c"/>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/src/tool_xattr.h"/>
+                        </Folder>
+                        <Folder Name="tests">
+                            <Folder Name="data">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/data/CMakeLists.txt"/>
+                            </Folder>
+                            <Folder Name="libtest">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/chkhostname.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/CMakeLists.txt"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/first.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1500.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1501.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1502.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1506.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1507.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1508.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1509.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1510.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1511.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1512.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1513.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1514.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1515.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1517.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1520.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1521.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1525.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1526.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1527.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1528.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1529.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1530.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1531.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1532.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1533.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1534.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1535.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1536.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1537.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1538.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1540.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1550.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1551.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1552.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1553.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1554.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1555.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1556.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib1900.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib500.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib501.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib502.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib503.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib504.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib505.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib506.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib507.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib508.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib509.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib510.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib511.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib512.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib513.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib514.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib515.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib516.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib517.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib518.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib519.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib520.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib521.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib523.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib524.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib525.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib526.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib530.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib533.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib536.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib537.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib539.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib540.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib541.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib542.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib543.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib544.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib547.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib549.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib552.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib553.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib554.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib555.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib556.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib557.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib558.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib559.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib560.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib562.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib564.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib566.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib567.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib568.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib569.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib570.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib571.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib572.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib573.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib574.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib575.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib576.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib578.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib579.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib582.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib583.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib586.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib589.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib590.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib591.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib597.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib598.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib599.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib643.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib650.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib651.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib652.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib653.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib654.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/lib655.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/libauthretry.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/libntlmconnect.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/sethostname.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/sethostname.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/stub_gssapi.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/stub_gssapi.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/test.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/testtrace.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/testtrace.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/testutil.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/libtest/testutil.h"/>
+                            </Folder>
+                            <Folder Name="server">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/CMakeLists.txt"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/fake_ntlm.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/getpart.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/getpart.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/resolve.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/rtspd.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/server_setup.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/server_sockaddr.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/sockfilt.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/sws.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/testpart.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/tftp.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/tftpd.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/util.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/server/util.h"/>
+                            </Folder>
+                            <Folder Name="unit">
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/CMakeLists.txt"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/curlcheck.h"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1300.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1301.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1302.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1303.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1304.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1305.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1307.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1308.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1309.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1323.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1330.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1394.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1395.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1396.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1397.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1398.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1399.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1600.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1601.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1602.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1603.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1604.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1605.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1606.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1607.c"/>
+                                <F N="../../platform/x86_64/source/curl-7.60.0/tests/unit/unit1608.c"/>
+                            </Folder>
+                            <F N="../../platform/x86_64/source/curl-7.60.0/tests/CMakeLists.txt"/>
+                        </Folder>
+                        <F N="../../platform/x86_64/source/curl-7.60.0/CMakeLists.txt"/>
+                    </Folder>
+                </Folder>
+            </Folder>
+        </Folder>
+        <Folder Name="../qrcode">
+            <F N="../qrcode/CMakeLists.txt"/>
+            <F N="../qrcode/qrcode.c"/>
+        </Folder>
+        <Folder Name="../../rootfs">
+            <Folder Name="x86_64">
+                <Folder Name="amd64">
+                    <Folder Name="usr">
+                        <Folder Name="doc">
+                            <Folder Name="CUnit">
+                                <Folder Name="headers">
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/Automated.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/Basic.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/Console.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/CUCurses.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/CUError.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/CUnit.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/CUnit_intl.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/MyMem.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/TestDB.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/TestRun.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/Util.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/doc/CUnit/headers/Win.h"/>
+                                </Folder>
+                            </Folder>
+                        </Folder>
+                        <Folder Name="include">
+                            <Folder Name="CUnit">
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/Automated.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/Basic.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/Console.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/CUError.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/CUnit.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/CUnit_intl.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/MyMem.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/TestDB.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/TestRun.h"/>
+                                <F N="../../rootfs/x86_64/amd64/usr/include/CUnit/Util.h"/>
+                            </Folder>
+                            <F N="../../rootfs/x86_64/amd64/usr/include/zlog.h"/>
+                        </Folder>
+                        <Folder Name="local">
+                            <Folder Name="include">
+                                <Folder Name="alumy">
+                                    <Folder Name="http">
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/http/restful.h"/>
+                                    </Folder>
+                                    <Folder Name="network">
+                                        <Folder Name="wireless">
+                                            <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/network/wireless/quality.h"/>
+                                        </Folder>
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/network/ipv4.h"/>
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/network/manager.h"/>
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/network/tcp.h"/>
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/network/wireless.h"/>
+                                    </Folder>
+                                    <Folder Name="osal">
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/osal/network.h"/>
+                                    </Folder>
+                                    <Folder Name="sys">
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/sys/grp.h"/>
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/sys/process.h"/>
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/sys/sysinfo.h"/>
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/sys/user.h"/>
+                                        <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/sys/user_grp.h"/>
+                                    </Folder>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/bank_card.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/base.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/base64.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/bcc.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/bcd.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/config.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/crc.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/diag.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/errno.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/fifo.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/format_color.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/list.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/log.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/mem.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/network.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/pool.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/qrcode.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/rbtree.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/string.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/sys.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/time.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/tlv.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/types.h"/>
+                                    <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy/version.h"/>
+                                </Folder>
+                                <F N="../../rootfs/x86_64/amd64/usr/local/include/alumy.h"/>
+                            </Folder>
+                        </Folder>
+                    </Folder>
+                </Folder>
+            </Folder>
+        </Folder>
+        <Folder Name="../string">
+            <F N="../string/CMakeLists.txt"/>
+            <F N="../string/format.c"/>
+            <F N="../string/str_add_null.c"/>
+            <F N="../string/strerror.c"/>
+            <F N="../string/strlcpy.c"/>
+        </Folder>
+        <Folder Name="../sys">
+            <F N="../sys/CMakeLists.txt"/>
+            <F N="../sys/sysinfo.c"/>
+        </Folder>
+        <Folder Name="../test">
+            <F N="../test/bank_card.c"/>
+            <F N="../test/bcd.c"/>
+            <F N="../test/ftp.c"/>
+            <F N="../test/mem.c"/>
+            <F N="../test/network.c"/>
+            <F N="../test/process.c"/>
+            <F N="../test/rbtree.c"/>
+            <F N="../test/string.c"/>
+            <F N="../test/sysinfo.c"/>
+            <F N="../test/test.c"/>
+            <F N="../test/test.h"/>
+            <F N="../test/version.c"/>
+        </Folder>
+        <Folder Name="../unity">
+            <F N="../unity/unity.c"/>
+            <F N="../unity/unity_fixture.c"/>
+        </Folder>
+    </Files>
+</Project>
