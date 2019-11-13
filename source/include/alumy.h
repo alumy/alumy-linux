@@ -16,6 +16,7 @@
 #include "alumy/list.h"
 #include "alumy/sys.h"
 #include "alumy/rbtree.h"
+#include "alumy/filter.h"
 
 __BEGIN_DECLS
 

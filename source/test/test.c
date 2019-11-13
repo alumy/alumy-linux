@@ -47,6 +47,7 @@ static void add_tests(void)
 		add_sysinfo_tests,
 		add_rbtree_tests,
         add_ftp_tests,
+        add_filter_tests,
 	};
 
 	assert(CU_get_registry() != NULL);
