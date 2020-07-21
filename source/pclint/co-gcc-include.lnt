@@ -1,6 +1,0 @@
--i"../include"
--i"../../rootfs/usr/include"
--i"../../tools/fsl-linaro-toolchain/lib/gcc/arm-fsl-linux-gnueabi/4.6.2/include"
--i"../../tools/fsl-linaro-toolchain/lib/gcc/arm-fsl-linux-gnueabi/4.6.2/include-fixed"
--i"../../tools/fsl-linaro-toolchain/lib/gcc/arm-fsl-linux-gnueabi/4.6.2/../../../../arm-fsl-linux-gnueabi/include"
--i"../../tools/fsl-linaro-toolchain/arm-fsl-linux-gnueabi/multi-libs/usr/include"
