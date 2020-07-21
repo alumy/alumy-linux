@@ -1,0 +1,514 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+    Version="10.0"
+    VendorName="SlickEdit"
+    TemplateName="GNU C/C++"
+    WorkingDir="."
+    BuildSystem="vsbuild">
+    <Config
+        Name="Debug"
+        Type="gnuc"
+        DebugCallbackName="gdb"
+        Version="1"
+        OutputFile="%bdrootfs.exe"
+        CompilerConfigName="Latest Version">
+        <Menu>
+            <Target
+                Name="Compile"
+                MenuCaption="&amp;Compile"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                OutputExts="*.o"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='g++ -c %xup  %defd -g -o "%bd%n%oe" %i "%f"'/>
+            </Target>
+            <Target
+                Name="Link"
+                MenuCaption="&amp;Link"
+                ShowOnMenu="Never"
+                Dialog="_gnuc_options_form Link"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='g++ %xup -g -o "%o" %f %libs'/>
+            </Target>
+            <Target
+                Name="Build"
+                MenuCaption="&amp;Build"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t build'/>
+            </Target>
+            <Target
+                Name="Rebuild"
+                MenuCaption="&amp;Rebuild"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t rebuild'/>
+            </Target>
+            <Target
+                Name="Debug"
+                MenuCaption="&amp;Debug"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveNone"
+                RunFromDir="%rw">
+                <Exec CmdLine='vsdebugio -prog "%o"'/>
+            </Target>
+            <Target
+                Name="Execute"
+                MenuCaption="E&amp;xecute"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%o"'/>
+            </Target>
+            <Target
+                Name="dash"
+                MenuCaption="-"
+                Deletable="0">
+                <Exec/>
+            </Target>
+            <Target
+                Name="GNU C Options"
+                MenuCaption="GNU C &amp;Options..."
+                ShowOnMenu="HideIfNoCmdLine"
+                Deletable="0"
+                SaveOption="SaveNone">
+                <Exec
+                    CmdLine="gnucoptions"
+                    Type="Slick-C"/>
+            </Target>
+        </Menu>
+        <Rules Name="Compile">
+            <Rule
+                InputExts="*.ada"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gnat -g -c -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.adb"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gnat -g -c -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.f"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gfortran -c -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.f90"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gfortran -c -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.d"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gdc -c -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+        </Rules>
+        <List Name="GNUC Options">
+            <Item
+                Name="LinkerOutputType"
+                Value="Executable"/>
+        </List>
+    </Config>
+    <Config
+        Name="Release"
+        Type="gnuc"
+        DebugCallbackName="gdb"
+        Version="1"
+        OutputFile="%bdrootfs.exe"
+        CompilerConfigName="Latest Version">
+        <Menu>
+            <Target
+                Name="Compile"
+                MenuCaption="&amp;Compile"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                OutputExts="*.o"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='g++ -c %xup %defd -o "%bd%n%oe" %i "%f"'/>
+            </Target>
+            <Target
+                Name="Link"
+                MenuCaption="&amp;Link"
+                ShowOnMenu="Never"
+                Dialog="_gnuc_options_form Link"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='g++ %xup -o "%o" %f %libs'/>
+            </Target>
+            <Target
+                Name="Build"
+                MenuCaption="&amp;Build"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t build'/>
+            </Target>
+            <Target
+                Name="Rebuild"
+                MenuCaption="&amp;Rebuild"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t rebuild'/>
+            </Target>
+            <Target
+                Name="Debug"
+                MenuCaption="&amp;Debug"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveNone"
+                RunFromDir="%rw">
+                <Exec CmdLine='vsdebugio -prog "%o"'/>
+            </Target>
+            <Target
+                Name="Execute"
+                MenuCaption="E&amp;xecute"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%o"'/>
+            </Target>
+            <Target
+                Name="dash"
+                MenuCaption="-"
+                Deletable="0">
+                <Exec/>
+            </Target>
+            <Target
+                Name="GNU C Options"
+                MenuCaption="GNU C &amp;Options..."
+                ShowOnMenu="HideIfNoCmdLine"
+                Deletable="0"
+                SaveOption="SaveNone">
+                <Exec
+                    CmdLine="gnucoptions"
+                    Type="Slick-C"/>
+            </Target>
+        </Menu>
+        <Rules Name="Compile">
+            <Rule
+                InputExts="*.ada"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gnat -O -c -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.adb"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gnat -O -c -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.f"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gfortran -O -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.f90"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gfortran -O -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+            <Rule
+                InputExts="*.d"
+                OutputExts="*.o"
+                LinkObject="1">
+                <Exec CmdLine='gdc -c -g -o "%bd%n.o" "%f"'/>
+            </Rule>
+        </Rules>
+        <List Name="GNUC Options">
+            <Item
+                Name="LinkerOutputType"
+                Value="Executable"/>
+        </List>
+    </Config>
+    <CustomFolders>
+        <Folder
+            Name="Source Files"
+            Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go"
+            GUID="{16BB4B57-1D60-40CD-5656-19069C0368BA}"/>
+        <Folder
+            Name="Header Files"
+            Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
+            GUID="{5E749E13-A3C7-4E4B-1699-29681AFCA8BA}"></Folder>
+        <Folder
+            Name="Resource Files"
+            Filters="*.ico;*.cur;*.dlg"
+            GUID="{8672AC8B-BC80-4F5F-6969-549E86FBE387}"/>
+        <Folder
+            Name="Bitmaps"
+            Filters="*.bmp"
+            GUID="{398596B7-8AB3-4A25-38DC-684928D452A4}"/>
+        <Folder
+            Name="Other Files"
+            Filters=""
+            GUID="{F6D9EEBB-E5B0-48F8-CA45-38922CF050A7}"/>
+    </CustomFolders>
+    <Files AutoFolders="DirectoryView">
+        <Folder Name="../../rootfs">
+            <Folder Name="usr">
+                <Folder Name="doc">
+                    <Folder Name="CUnit">
+                        <Folder Name="headers">
+                            <F N="../../rootfs/usr/doc/CUnit/headers/Automated.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/Basic.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/Console.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/CUCurses.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/CUError.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/CUnit.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/CUnit_intl.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/MyMem.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/TestDB.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/TestRun.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/Util.h"/>
+                            <F N="../../rootfs/usr/doc/CUnit/headers/Win.h"/>
+                        </Folder>
+                    </Folder>
+                </Folder>
+                <Folder Name="include">
+                    <Folder Name="CUnit">
+                        <F N="../../rootfs/usr/include/CUnit/Automated.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/Basic.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/Console.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/CUError.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/CUnit.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/CUnit_intl.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/MyMem.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/TestDB.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/TestRun.h"/>
+                        <F N="../../rootfs/usr/include/CUnit/Util.h"/>
+                    </Folder>
+                    <Folder Name="curl">
+                        <F N="../../rootfs/usr/include/curl/curl.h"/>
+                        <F N="../../rootfs/usr/include/curl/curlver.h"/>
+                        <F N="../../rootfs/usr/include/curl/easy.h"/>
+                        <F N="../../rootfs/usr/include/curl/mprintf.h"/>
+                        <F N="../../rootfs/usr/include/curl/multi.h"/>
+                        <F N="../../rootfs/usr/include/curl/stdcheaders.h"/>
+                        <F N="../../rootfs/usr/include/curl/system.h"/>
+                        <F N="../../rootfs/usr/include/curl/typecheck-gcc.h"/>
+                    </Folder>
+                    <Folder Name="event2">
+                        <F N="../../rootfs/usr/include/event2/buffer.h"/>
+                        <F N="../../rootfs/usr/include/event2/buffer_compat.h"/>
+                        <F N="../../rootfs/usr/include/event2/bufferevent.h"/>
+                        <F N="../../rootfs/usr/include/event2/bufferevent_compat.h"/>
+                        <F N="../../rootfs/usr/include/event2/bufferevent_ssl.h"/>
+                        <F N="../../rootfs/usr/include/event2/bufferevent_struct.h"/>
+                        <F N="../../rootfs/usr/include/event2/dns.h"/>
+                        <F N="../../rootfs/usr/include/event2/dns_compat.h"/>
+                        <F N="../../rootfs/usr/include/event2/dns_struct.h"/>
+                        <F N="../../rootfs/usr/include/event2/event-config.h"/>
+                        <F N="../../rootfs/usr/include/event2/event.h"/>
+                        <F N="../../rootfs/usr/include/event2/event_compat.h"/>
+                        <F N="../../rootfs/usr/include/event2/event_struct.h"/>
+                        <F N="../../rootfs/usr/include/event2/http.h"/>
+                        <F N="../../rootfs/usr/include/event2/http_compat.h"/>
+                        <F N="../../rootfs/usr/include/event2/http_struct.h"/>
+                        <F N="../../rootfs/usr/include/event2/keyvalq_struct.h"/>
+                        <F N="../../rootfs/usr/include/event2/listener.h"/>
+                        <F N="../../rootfs/usr/include/event2/rpc.h"/>
+                        <F N="../../rootfs/usr/include/event2/rpc_compat.h"/>
+                        <F N="../../rootfs/usr/include/event2/rpc_struct.h"/>
+                        <F N="../../rootfs/usr/include/event2/tag.h"/>
+                        <F N="../../rootfs/usr/include/event2/tag_compat.h"/>
+                        <F N="../../rootfs/usr/include/event2/thread.h"/>
+                        <F N="../../rootfs/usr/include/event2/util.h"/>
+                        <F N="../../rootfs/usr/include/event2/visibility.h"/>
+                    </Folder>
+                    <Folder Name="ncurses">
+                        <F N="../../rootfs/usr/include/ncurses/curses.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/cursesapp.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/cursesf.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/cursesm.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/cursesp.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/cursesw.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/cursslk.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/eti.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/etip.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/form.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/menu.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/nc_tparm.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/ncurses.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/ncurses_dll.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/panel.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/term.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/term_entry.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/termcap.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/tic.h"/>
+                        <F N="../../rootfs/usr/include/ncurses/unctrl.h"/>
+                    </Folder>
+                    <Folder Name="openssl">
+                        <F N="../../rootfs/usr/include/openssl/aes.h"/>
+                        <F N="../../rootfs/usr/include/openssl/asn1.h"/>
+                        <F N="../../rootfs/usr/include/openssl/asn1_mac.h"/>
+                        <F N="../../rootfs/usr/include/openssl/asn1t.h"/>
+                        <F N="../../rootfs/usr/include/openssl/bio.h"/>
+                        <F N="../../rootfs/usr/include/openssl/blowfish.h"/>
+                        <F N="../../rootfs/usr/include/openssl/bn.h"/>
+                        <F N="../../rootfs/usr/include/openssl/buffer.h"/>
+                        <F N="../../rootfs/usr/include/openssl/camellia.h"/>
+                        <F N="../../rootfs/usr/include/openssl/cast.h"/>
+                        <F N="../../rootfs/usr/include/openssl/cmac.h"/>
+                        <F N="../../rootfs/usr/include/openssl/cms.h"/>
+                        <F N="../../rootfs/usr/include/openssl/comp.h"/>
+                        <F N="../../rootfs/usr/include/openssl/conf.h"/>
+                        <F N="../../rootfs/usr/include/openssl/conf_api.h"/>
+                        <F N="../../rootfs/usr/include/openssl/crypto.h"/>
+                        <F N="../../rootfs/usr/include/openssl/des.h"/>
+                        <F N="../../rootfs/usr/include/openssl/des_old.h"/>
+                        <F N="../../rootfs/usr/include/openssl/dh.h"/>
+                        <F N="../../rootfs/usr/include/openssl/dsa.h"/>
+                        <F N="../../rootfs/usr/include/openssl/dso.h"/>
+                        <F N="../../rootfs/usr/include/openssl/dtls1.h"/>
+                        <F N="../../rootfs/usr/include/openssl/e_os2.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ebcdic.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ec.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ecdh.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ecdsa.h"/>
+                        <F N="../../rootfs/usr/include/openssl/engine.h"/>
+                        <F N="../../rootfs/usr/include/openssl/err.h"/>
+                        <F N="../../rootfs/usr/include/openssl/evp.h"/>
+                        <F N="../../rootfs/usr/include/openssl/hmac.h"/>
+                        <F N="../../rootfs/usr/include/openssl/idea.h"/>
+                        <F N="../../rootfs/usr/include/openssl/krb5_asn.h"/>
+                        <F N="../../rootfs/usr/include/openssl/kssl.h"/>
+                        <F N="../../rootfs/usr/include/openssl/lhash.h"/>
+                        <F N="../../rootfs/usr/include/openssl/md4.h"/>
+                        <F N="../../rootfs/usr/include/openssl/md5.h"/>
+                        <F N="../../rootfs/usr/include/openssl/mdc2.h"/>
+                        <F N="../../rootfs/usr/include/openssl/modes.h"/>
+                        <F N="../../rootfs/usr/include/openssl/obj_mac.h"/>
+                        <F N="../../rootfs/usr/include/openssl/objects.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ocsp.h"/>
+                        <F N="../../rootfs/usr/include/openssl/opensslconf.h"/>
+                        <F N="../../rootfs/usr/include/openssl/opensslv.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ossl_typ.h"/>
+                        <F N="../../rootfs/usr/include/openssl/pem.h"/>
+                        <F N="../../rootfs/usr/include/openssl/pem2.h"/>
+                        <F N="../../rootfs/usr/include/openssl/pkcs12.h"/>
+                        <F N="../../rootfs/usr/include/openssl/pkcs7.h"/>
+                        <F N="../../rootfs/usr/include/openssl/pqueue.h"/>
+                        <F N="../../rootfs/usr/include/openssl/rand.h"/>
+                        <F N="../../rootfs/usr/include/openssl/rc2.h"/>
+                        <F N="../../rootfs/usr/include/openssl/rc4.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ripemd.h"/>
+                        <F N="../../rootfs/usr/include/openssl/rsa.h"/>
+                        <F N="../../rootfs/usr/include/openssl/safestack.h"/>
+                        <F N="../../rootfs/usr/include/openssl/seed.h"/>
+                        <F N="../../rootfs/usr/include/openssl/sha.h"/>
+                        <F N="../../rootfs/usr/include/openssl/srp.h"/>
+                        <F N="../../rootfs/usr/include/openssl/srtp.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ssl.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ssl2.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ssl23.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ssl3.h"/>
+                        <F N="../../rootfs/usr/include/openssl/stack.h"/>
+                        <F N="../../rootfs/usr/include/openssl/symhacks.h"/>
+                        <F N="../../rootfs/usr/include/openssl/tls1.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ts.h"/>
+                        <F N="../../rootfs/usr/include/openssl/txt_db.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ui.h"/>
+                        <F N="../../rootfs/usr/include/openssl/ui_compat.h"/>
+                        <F N="../../rootfs/usr/include/openssl/whrlpool.h"/>
+                        <F N="../../rootfs/usr/include/openssl/x509.h"/>
+                        <F N="../../rootfs/usr/include/openssl/x509_vfy.h"/>
+                        <F N="../../rootfs/usr/include/openssl/x509v3.h"/>
+                    </Folder>
+                    <F N="../../rootfs/usr/include/assuan.h"/>
+                    <F N="../../rootfs/usr/include/evdns.h"/>
+                    <F N="../../rootfs/usr/include/event.h"/>
+                    <F N="../../rootfs/usr/include/evhttp.h"/>
+                    <F N="../../rootfs/usr/include/evrpc.h"/>
+                    <F N="../../rootfs/usr/include/evutil.h"/>
+                    <F N="../../rootfs/usr/include/gcrypt.h"/>
+                    <F N="../../rootfs/usr/include/gpg-error.h"/>
+                    <F N="../../rootfs/usr/include/gpgrt.h"/>
+                    <F N="../../rootfs/usr/include/ksba.h"/>
+                    <F N="../../rootfs/usr/include/npth.h"/>
+                    <F N="../../rootfs/usr/include/sqlite3.h"/>
+                    <F N="../../rootfs/usr/include/sqlite3ext.h"/>
+                    <F N="../../rootfs/usr/include/tslib.h"/>
+                    <F N="../../rootfs/usr/include/zconf.h"/>
+                    <F N="../../rootfs/usr/include/zlib.h"/>
+                    <F N="../../rootfs/usr/include/zlog.h"/>
+                </Folder>
+                <Folder Name="lib">
+                    <Folder Name="glib-2.0">
+                        <Folder Name="include">
+                            <F N="../../rootfs/usr/lib/glib-2.0/include/glibconfig.h"/>
+                        </Folder>
+                    </Folder>
+                </Folder>
+                <Folder Name="local">
+                    <Folder Name="include">
+                        <Folder Name="alumy">
+                            <Folder Name="mem">
+                                <F N="../../rootfs/usr/local/include/alumy/mem/mem.h"/>
+                            </Folder>
+                            <Folder Name="network">
+                                <F N="../../rootfs/usr/local/include/alumy/network/tcp.h"/>
+                            </Folder>
+                            <Folder Name="string">
+                                <F N="../../rootfs/usr/local/include/alumy/string/string.h"/>
+                            </Folder>
+                            <F N="../../rootfs/usr/local/include/alumy/aes.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/al_string.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/base.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/bcd.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/crc.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/fifo.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/list.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/log.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/mem.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/network.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/pool.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/rbtree.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/string.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/sysinfo.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/types.h"/>
+                            <F N="../../rootfs/usr/local/include/alumy/version.h"/>
+                        </Folder>
+                    </Folder>
+                </Folder>
+            </Folder>
+        </Folder>
+    </Files>
+</Project>
