@@ -1,0 +1,10 @@
+        :cmock:
+          :plugins:
+            - expect
+            - expect_any_args
+            - return_thru_ptr
+            - array
+            - callback
+            - ignore_arg
+          :mock_prefix: mock_
+          :orig_header_include_fmt: '#include "alumy/%s"'

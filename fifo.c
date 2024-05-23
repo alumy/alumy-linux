@@ -1,5 +1,6 @@
 ﻿#include <string.h>
 #include "alumy/fifo.h"
+#include "alumy/bug.h"
 
 __BEGIN_DECLS
 
@@ -14,7 +15,7 @@ __BEGIN_DECLS
  *
  * @return size_t The size of put into
  */
-static size_t __fifo_put(fifo_t *fifo, const uint8_t *data, size_t len)
+static size_t __fifo_put(al_fifo_t *fifo, const uint8_t *data, size_t len)
 {
 	size_t l;
 
@@ -43,7 +44,7 @@ static size_t __fifo_put(fifo_t *fifo, const uint8_t *data, size_t len)
  *
  * @return size_t The size of read
  */
-static size_t __fifo_get(fifo_t *fifo, uint8_t *data, size_t len)
+static size_t __fifo_get(al_fifo_t *fifo, uint8_t *data, size_t len)
 {
 	size_t l;
 
@@ -61,7 +62,7 @@ static size_t __fifo_get(fifo_t *fifo, uint8_t *data, size_t len)
 	return len;
 }
 
-size_t fifo_put(fifo_t *fifo, const uint8_t *data, size_t len)
+size_t al_fifo_put(al_fifo_t *fifo, const uint8_t *data, size_t len)
 {
 	size_t ret;
 
@@ -70,7 +71,27 @@ size_t fifo_put(fifo_t *fifo, const uint8_t *data, size_t len)
 	return ret;
 }
 
-size_t fifo_get(fifo_t *fifo, uint8_t *data, size_t len)
+size_t al_fifo_len(al_fifo_t *fifo)
+{
+    return fifo->in - fifo->out;
+}
+
+bool al_fifo_is_empty(al_fifo_t *fifo)
+{
+	return (al_fifo_len(fifo) == 0);
+}
+
+bool al_fifo_is_full(al_fifo_t *fifo)
+{
+	return (al_fifo_len(fifo) == fifo->size);
+}
+
+size_t al_fifo_size(al_fifo_t *fifo)
+{
+	return fifo->size;
+}
+
+size_t al_fifo_get(al_fifo_t *fifo, uint8_t *data, size_t len)
 {
 	size_t ret;
 
@@ -82,10 +103,11 @@ size_t fifo_get(fifo_t *fifo, uint8_t *data, size_t len)
 	return ret;
 }
 
-
-void fifo_init(fifo_t *fifo, uint8_t *buf, size_t size)
+void al_fifo_init(al_fifo_t *fifo, uint8_t *buf, size_t size)
 {
-	fifo->buf = buf;
+    BUG_ON(!is_power_of_2(size));
+
+    fifo->buf = buf;
 	fifo->size = size;
 	fifo->in = fifo->out = 0;
 }

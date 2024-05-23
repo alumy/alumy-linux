@@ -6,7 +6,7 @@
 
 __BEGIN_DECLS
 
-bool mem_is_filled(const void *buf, uint_fast8_t c, size_t len)
+bool al_mem_is_filled(const void *buf, uint_fast8_t c, size_t len)
 {
 	uintptr_t p = (uintptr_t)buf;
 

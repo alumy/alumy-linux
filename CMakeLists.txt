@@ -3,9 +3,9 @@
 #############################################################################
 message(STATUS "Using toolchain file: ${CMAKE_TOOLCHAIN_FILE}.")
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 
-project(alumy C)
+project(alumy C ASM)
 
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 0)
@@ -17,19 +17,22 @@ set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 # Check for linux
 #############################################################################
 include(${PROJECT_SOURCE_DIR}/cmake/linux_check.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/generic_check.cmake)
 
 #############################################################################
 # Parameter for compile
 #############################################################################
-# Project root directory
-set(ROOT_DIR ${PROJECT_SOURCE_DIR}/../..)
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-	message(STATUS "64 bits cpu")
-	set(CMAKE_INSTALL_LIBDIR lib64)
+    message(STATUS "64 bits cpu")
+    set(CMAKE_INSTALL_LIBDIR lib64)
 else()
-	message(STATUS "32 bits cpu")
-	set(CMAKE_INSTALL_LIBDIR lib)
+    message(STATUS "32 bits cpu")
+    set(CMAKE_INSTALL_LIBDIR lib)
+endif()
+
+if(UNIT_TEST EQUAL 1)
+	add_definitions(-DAL_UT)
 endif()
 
 include(GNUInstallDirs)
@@ -37,39 +40,55 @@ include(${PROJECT_SOURCE_DIR}/cmake/message.cmake)
 
 find_program(CCACHE_FOUND ccache)
 if(CCACHE_FOUND)
-	set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
 endif(CCACHE_FOUND)
 
-if(EXISTS "${ROOT_DIR}/.svn/")
-	find_package(Subversion)
-	
-	if(SUBVERSION_FOUND)
-		Subversion_WC_INFO(${ROOT_DIR} PROJ)
-		set(SVN_VERSION ${PROJ_WC_REVISION})
-	endif(SUBVERSION_FOUND)
-endif(EXISTS "${ROOT_DIR}/.svn/")
-
 configure_file(
-	${PROJECT_SOURCE_DIR}/include/alumy/version.h.in
-	${PROJECT_SOURCE_DIR}/include/alumy/version.h)
+    ${PROJECT_SOURCE_DIR}/include/alumy/version.h.in
+    ${PROJECT_SOURCE_DIR}/include/alumy/version.h)
+
+#######################################################################
+# get svn revision
+#######################################################################
+add_custom_command(
+    OUTPUT ${PROJECT_SOURCE_DIR}/include/alumy/svn_revision.h
+    ALL
+    COMMAND ${CMAKE_COMMAND} -D TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} -P ${CMAKE_SOURCE_DIR}/cmake/svn-revision.cmake
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# rebuild svn_revision.h every time
+add_custom_target(get_svn_revision
+    ALL
+    DEPENDS ${PROJECT_SOURCE_DIR}/include/alumy/svn_revision.h
+)
+
+#####################################################################
+# get git hash
+#####################################################################
+add_custom_command(
+    OUTPUT ${PROJECT_SOURCE_DIR}/include/alumy/git_hash.h
+    ALL
+    COMMAND ${CMAKE_COMMAND} -D TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} -P ${PROJECT_SOURCE_DIR}/cmake/git-hash.cmake
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# rebuild git_hash.h every time
+add_custom_target(get_git_hash
+    ALL
+    DEPENDS ${PROJECT_SOURCE_DIR}/include/alumy/git_hash.h
+)
 
 add_definitions(-D__STDC_FORMAT_MACROS)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-	include_directories(${ROOTFS_DIR}/usr/include)
-	include_directories(${ROOTFS_DIR}/usr/local/include)
-
-	link_directories(
-			${ROOTFS_DIR}/usr/lib
-			${ROOTFS_DIR}/usr/lib64
-			${ROOTFS_DIR}/usr/local/lib
-			${ROOTFS_DIR}/usr/local/lib64)
-
-	link_libraries(cunit rt curl)
+    link_libraries(rt curl)
 endif()
+
+link_libraries(m)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/crypto)
 add_subdirectory(${PROJECT_SOURCE_DIR}/crc)
@@ -82,6 +101,9 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/qrcode)
 add_subdirectory(${PROJECT_SOURCE_DIR}/card)
 add_subdirectory(${PROJECT_SOURCE_DIR}/bcc)
 add_subdirectory(${PROJECT_SOURCE_DIR}/base64)
+add_subdirectory(${PROJECT_SOURCE_DIR}/unity)
+add_subdirectory(${PROJECT_SOURCE_DIR}/cmock)
+add_subdirectory(${PROJECT_SOURCE_DIR}/cunit)
 add_subdirectory(${PROJECT_SOURCE_DIR}/osal)
 
 #############################################################################
@@ -105,34 +127,43 @@ set(objs
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_NAME}_src)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-	message(STATUS "Building static library for Linux")
+    message(STATUS "Building static library for Linux")
 
-	add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_src} ${objs})
-	
-	set_target_properties(${PROJECT_NAME} PROPERTIES 
-			VERSION "${PROJECT_VERSION}"
-			SOVERSION "${PROJECT_VERSION_MAJOR}")
+    add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_src} ${objs})
 
-	install(TARGETS "${PROJECT_NAME}" 
-			DESTINATION "${CMAKE_INSTALL_LIBDIR}" 
-			EXPORT "${PROJECT_NAME}")
+    add_dependencies(${PROJECT_NAME} get_git_hash)
+    add_dependencies(${PROJECT_NAME} get_svn_revision)
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            VERSION "${PROJECT_VERSION}"
+            SOVERSION "${PROJECT_VERSION_MAJOR}")
+
+    install(TARGETS "${PROJECT_NAME}"
+            DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+            EXPORT "${PROJECT_NAME}")
 endif()
 
 add_library("${PROJECT_NAME}-static" STATIC ${${PROJECT_NAME}_src} ${objs})
 
+add_dependencies("${PROJECT_NAME}-static" get_git_hash)
+add_dependencies("${PROJECT_NAME}-static" get_svn_revision)
+
+# target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
+# target_compile_options(<target> [BEFORE] <INTERFACE|PUBLIC|PRIVATE> [items1...] [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
+
 set_target_properties("${PROJECT_NAME}-static" PROPERTIES OUTPUT_NAME "${PROJECT_NAME}")
 set_target_properties("${PROJECT_NAME}-static" PROPERTIES PREFIX "lib")
 
-install(TARGETS "${PROJECT_NAME}-static" 
-		DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+install(TARGETS "${PROJECT_NAME}-static"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}")
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-		DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-		FILES_MATCHING PATTERN "*.h")
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+        FILES_MATCHING PATTERN "*.h")
 
 include(InstallRequiredSystemLibraries)
 set(CPACK_PACKAGE_VENDOR alumy)
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/gpl-3.0.txt")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
@@ -140,44 +171,16 @@ set(CPACK_PACKAGE_CHECKSUM "SHA256")
 set(CPACK_GENERATOR "STGZ;TGZ;TZ")
 
 set(CPACK_SOURCE_IGNORE_FILES
-		${PROJECT_SOURCE_DIR}/build
-        ${PROJECT_SOURCE_DIR}/pack
-        ${PROJECT_SOURCE_DIR}/.svn)
+    ${PROJECT_SOURCE_DIR}/build
+    ${PROJECT_SOURCE_DIR}/pack
+    ${PROJECT_SOURCE_DIR}/.svn)
 set(CPACK_SOURCE_GENERATOR "TGZ")
 
 include(CPack)
 
-#############################################################################
-# test for libalumy
-#############################################################################
-if (${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-	message(STATUS "Building test for Linux")
-	
-	aux_source_directory(${PROJECT_SOURCE_DIR}/test test_src)
-
-	add_executable(${PROJECT_NAME}-test ${test_src} ${${PROJECT_NAME}_src})
-
-	add_custom_command(TARGET ${PROJECT_NAME}-test
-			POST_BUILD
-			COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/tools/covgen.sh .
-			COMMENT "Copying covgen.sh to calculate coverage")
-
-	add_custom_command(TARGET ${PROJECT_NAME}-test
-			POST_BUILD
-			COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/tools/cunit/xml/* .
-			COMMENT "Copying cunit resources")
-		
-	add_custom_command(TARGET ${PROJECT_NAME}-test
-			POST_BUILD
-			COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/config/* .
-			COMMENT "Copying configurations")
-
-	target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-
-	enable_testing()
-
-	add_test(test_alumy alumy-test)
-	add_test(test_cov "${CMAKE_CURRENT_BINARY_DIR}/covgen.sh")
-	# set_tests_properties (test_cov
-	#	PROPERTIES PASS_REGULAR_EXPRESSION "Test coverage")
+if(UNIT_TEST EQUAL 1)
+    enable_testing()
+    add_subdirectory(${PROJECT_SOURCE_DIR}/test)
 endif()
+
+

@@ -44,7 +44,7 @@ static void strlcpy_test(void)
 	/* No buffer */
 	memset(dst, 0xAA, sizeof(dst));
 	CU_ASSERT((strlcpy(dst, src, 0) == strlen(src)) &&
-			  mem_is_filled(dst, 0xAA, sizeof(dst)));
+			  al_mem_is_filled(dst, 0xAA, sizeof(dst)));
 }
 
 static void str_add_null_test(void)
@@ -67,7 +67,7 @@ static void str_add_null_test(void)
 
 	memset(dst, 0xAA, sizeof(dst));
 	CU_ASSERT((str_add_null(dst, 0, src, strlen(src)) == 0) &&
-			  mem_is_filled(dst, 0xAA, sizeof(dst)));
+			  al_mem_is_filled(dst, 0xAA, sizeof(dst)));
 }
 
 

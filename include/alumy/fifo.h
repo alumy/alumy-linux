@@ -16,12 +16,12 @@ __BEGIN_DECLS
  * @param put The put function pointer
  * @param get The get function pointer
  */
-typedef struct fifo{
+typedef struct al_fifo{
 	uint8_t *buf;
 	size_t size;
 	uintptr_t in;
 	uintptr_t out;
-}fifo_t;
+} al_fifo_t;
 
 /**
  * @brief Initialize a fifo
@@ -32,9 +32,13 @@ typedef struct fifo{
  * @param buf The buffer which is used by fifo
  * @param size The size of buffer
  */
-void fifo_init(fifo_t *fifo, uint8_t *buf, size_t size);
-size_t fifo_get(fifo_t *fifo, uint8_t *data, size_t len);
-size_t fifo_put(fifo_t *fifo, const uint8_t *data, size_t len);
+void al_fifo_init(al_fifo_t *fifo, uint8_t *buf, size_t size);
+size_t al_fifo_get(al_fifo_t *fifo, uint8_t *data, size_t len);
+size_t al_fifo_put(al_fifo_t *fifo, const uint8_t *data, size_t len);
+size_t al_fifo_len(al_fifo_t *fifo);
+bool al_fifo_is_empty(al_fifo_t *fifo);
+bool al_fifo_is_full(al_fifo_t *fifo);
+size_t al_fifo_size(al_fifo_t *fifo);
 
 __END_DECLS
 

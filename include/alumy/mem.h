@@ -29,10 +29,25 @@ __BEGIN_DECLS
 #endif
 
 #define AL_ALIGN_MASK(x, mask)	(((x) + (mask)) & ~(mask))
-#define AL_ALIGN(x, a)			AL_ALIGN_MASK((x), (typeof(x))(a) - 1)
-#define AL_ALIGN_DOWN(x, a)		AL_ALIGN((x) - ((a) - 1), (a))
+
 #define AL_PTR_ALIGN(p, a)		((typeof(p))AL_ALIGN((uintptr_t)(p), (a)))
-#define AL_IS_ALIGNED(x, a)		(((x) & ((typeof(x))(a) - 1)) == 0)
+
+#ifndef AL_ALIGN
+#if defined(__GNUC__)
+    #define AL_ALIGN(x, a)      AL_ALIGN_MASK((x), (typeof(x))(a) - 1)
+#else
+    #define AL_ALIGN(x, a)      AL_ALIGN_MASK((x), (a) - 1)
+#endif
+#endif
+
+#ifndef AL_IS_ALIGNED
+#if defined(__GNUC__)
+    #define AL_IS_ALIGNED(x, a)		(((x) & ((typeof(x))(a) - 1)) == 0)
+#else
+    #define AL_IS_ALIGNED(x, a)     \
+        (((uintptr_t)(x) & ((uintptr_t)(a) - 1)) == 0)
+#endif
+#endif
 
 /**
  * @brief Check if the buffer is filled with the specified value
@@ -46,7 +61,7 @@ __BEGIN_DECLS
  * @return bool Return true if all bytes of the buffer is filled
  *  	   with the specified value, otherwise return false
  */
-bool mem_is_filled(const void *buf, uint_fast8_t c, size_t len);
+bool al_mem_is_filled(const void *buf, uint_fast8_t c, size_t len);
 
 __END_DECLS
 

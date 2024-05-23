@@ -14,8 +14,7 @@ int32_t alumy_init(void)
     }
 
     if(curl_global_init(CURL_GLOBAL_DEFAULT) != CURLE_OK) {
-        set_errno(EPERM);
-
+        errno = EPERM;
         return -1;
     }
 
