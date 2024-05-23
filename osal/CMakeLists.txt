@@ -8,3 +8,9 @@ endif()
 
 add_library(${target} OBJECT ${osal_src})
 
+target_compile_options(${target} PRIVATE
+	-Wno-format
+	-Wno-char-subscripts
+	-Wno-error=unused-result
+	-Wno-unused-result)
+
