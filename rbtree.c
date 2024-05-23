@@ -400,7 +400,7 @@ void *rbtree_search_dft(rbtree_t *rb, const void *key, off_t offset)
 	struct rb_node *node = rb->root.rb_node;
 
 	while (node) {
-		ret = rb->compare((const void *)((uintptr_t)node - offset), key);
+        ret = rb->compare(key, (const void *)((uintptr_t)node - offset));
 
 		if (ret < 0)
 			node = node->rb_left;
@@ -415,7 +415,7 @@ void *rbtree_search_dft(rbtree_t *rb, const void *key, off_t offset)
 
 int32_t rbtree_insert_dft(rbtree_t *rb, void *key, off_t offset)
 {
-	int_fast32_t ret;
+	int_t ret;
 	struct rb_node **new, *parent, *node;
 
 	new = &(rb->root.rb_node);

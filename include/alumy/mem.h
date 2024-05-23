@@ -1,6 +1,7 @@
 #ifndef __AL_MEM_H
 #define __AL_MEM_H 1
 
+#include "alumy/config.h"
 #include "alumy/types.h"
 #include "alumy/base.h"
 
@@ -48,6 +49,15 @@ __BEGIN_DECLS
         (((uintptr_t)(x) & ((uintptr_t)(a) - 1)) == 0)
 #endif
 #endif
+
+#define AL_ALIGN_DOWN(x, a)		AL_ALIGN((x) - ((a) - 1), (a))
+
+
+__static_inline__ bool al_mem_is_overflow(
+    uintptr_t addr, size_t len, uintptr_t start, uintptr_t end)
+{
+    return !((addr >= start) && (addr + len <= end));
+}
 
 /**
  * @brief Check if the buffer is filled with the specified value

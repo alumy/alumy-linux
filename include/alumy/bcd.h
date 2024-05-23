@@ -1,15 +1,19 @@
 #ifndef __AL_BCD_H
 #define __AL_BCD_H 1
 
+#include "alumy/config.h"
 #include "alumy/types.h"
 #include "alumy/base.h"
 
 __BEGIN_DECLS
 
-uint8_t al_bin2bcd(uint_fast8_t bin);
-uint8_t al_bcd2bin(uint_fast8_t bcd);
-const char *al_bcd2str(char *dst, size_t dstsz, const uint8_t *bcd, size_t n);
+uint8_t bcd2bin(uint8_t bcd);
+uint8_t bin2bcd(uint8_t bin);
+
+uint8_t al_bcd2bin(uint8_t bcd);
+uint8_t al_bin2bcd(uint8_t bin);
 
 __END_DECLS
 
 #endif
+

@@ -1,6 +1,7 @@
 #ifndef __LIST_H
 #define __LIST_H
 
+#include "alumy/config.h"
 #include "alumy/types.h"
 #include "alumy/base.h"
 
@@ -253,8 +254,7 @@ static inline void list_splice_tail_init(struct list_head *list,
  * @member:	the name of the list_struct within the struct.
  */
 #define list_entry(ptr, type, member) \
-	((type *)((uint8_t *)(ptr) - offsetof(type, member)))
-
+    ((type *)((uint8_t *)(ptr) - offsetof(type, member)))
 
 
 /**

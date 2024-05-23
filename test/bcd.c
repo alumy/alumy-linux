@@ -38,18 +38,6 @@ static void al_bcd2bin_test(void)
 	CU_ASSERT(al_bcd2bin(0x99) == 99);
 }
 
-static void al_bcd2str_test(void)
-{
-	char str[128];
-
-	uint8_t bcd[] = { 0x01, 0x03, 0x05, 0x07 };
-
-	CU_ASSERT_STRING_EQUAL(
-		al_bcd2str(str, sizeof(str), bcd, sizeof(bcd)), "01030507");
-
-	CU_ASSERT(al_bcd2str(str, 8, bcd, sizeof(bcd)) == NULL);
-}
-
 void add_bcd_tests(void)
 {
 	CU_pSuite suite;
@@ -58,7 +46,6 @@ void add_bcd_tests(void)
 
 	CU_add_test(suite, "al_bin2bcd", al_bin2bcd_test);
 	CU_add_test(suite, "al_bcd2bin", al_bcd2bin_test);
-	CU_add_test(suite, "al_bcd2str", al_bcd2str_test);
 }
 
 __END_DECLS

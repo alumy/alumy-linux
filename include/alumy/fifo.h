@@ -1,6 +1,7 @@
 ﻿#ifndef __AL_FIFO_H
 #define __AL_FIFO_H 1
 
+#include "alumy/config.h"
 #include "alumy/types.h"
 #include "alumy/base.h"
 
