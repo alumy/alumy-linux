@@ -1,9 +1,13 @@
 #ifndef __ALUMY_H
 #define __ALUMY_H 1
 
+#include "alumy/config.h"
+#include "alumy/byteorder.h"
 #include "alumy/types.h"
 #include "alumy/base.h"
+#include "alumy/bit.h"
 #include "alumy/version.h"
+#include "alumy/errno.h"
 #include "alumy/log.h"
 #include "alumy/crc.h"
 #include "alumy/network.h"

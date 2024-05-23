@@ -1,2 +1,9 @@
-build/
+node_modules/
+npm-debug.log
+package-lock.json
 
+build/
+release/
+
+git_hash.h
+svn_revision.h
