@@ -16,6 +16,7 @@ set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 #############################################################################
 # Check for linux
 #############################################################################
+include(${PROJECT_SOURCE_DIR}/cmake/toolchain/toolchain-flags.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/linux_check.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/generic_check.cmake)
 
@@ -90,6 +91,7 @@ endif()
 
 link_libraries(m)
 
+add_subdirectory(${PROJECT_SOURCE_DIR}/3rd-party)
 add_subdirectory(${PROJECT_SOURCE_DIR}/crypto)
 add_subdirectory(${PROJECT_SOURCE_DIR}/crc)
 add_subdirectory(${PROJECT_SOURCE_DIR}/mem)

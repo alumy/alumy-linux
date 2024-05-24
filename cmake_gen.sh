@@ -21,7 +21,7 @@ set -e
 
 # Delete build directory
 if [ -d build ]; then
-	rm -r build
+	rm -rf build
 fi
 
 # Make build directory
