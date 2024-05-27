@@ -1,7 +1,10 @@
 get_filename_component(toolchain ${CMAKE_TOOLCHAIN_FILE} NAME ABSOLUTE)
+get_filename_component(toolchain_we ${CMAKE_TOOLCHAIN_FILE} NAME_WE ABSOLUTE)
 
-if(${toolchain} STREQUAL "gcc.cmake")
-	include(${PROJECT_SOURCE_DIR}/cmake/toolchain/gcc-flags.cmake)
-elseif(${toolchain} STREQUAL "arm-linux-gnueabi.cmake")
-	include(${PROJECT_SOURCE_DIR}/cmake/toolchain/arm-linux-gnueabi-flags.cmake)
+set(flags_file ${PROJECT_SOURCE_DIR}/cmake/toolchain/${toolchain_we}-flags.cmake CACHE STRING "" FORCE)
+
+if((NOT EXISTS ${flags_file}) OR (IS_DIRECTORY ${flags_file}))
+	MESSAGE(FATAL_ERROR  "${flags_file} is not exists")
+else()
+	include(${flags_file})
 endif()

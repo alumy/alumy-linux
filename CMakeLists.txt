@@ -85,10 +85,6 @@ add_definitions(-D__STDC_FORMAT_MACROS)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# curl
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/curl/include)
-link_directories(${CMAKE_CURRENT_BINARY_DIR}/curl/lib)
-
 if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
     link_libraries(rt curl)
 endif()
@@ -117,6 +113,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/osal)
 #############################################################################
 
 set(objs 
+		$<TARGET_OBJECTS:3rd-party>
 		$<TARGET_OBJECTS:sys>
 		$<TARGET_OBJECTS:crypto>
 		$<TARGET_OBJECTS:crc>

@@ -2,8 +2,6 @@ set(target 3rd-party)
 
 include(ExternalProject)
 
-include_directories(/usr/include/x86_64-linux-gnu/)
-
 ExternalProject_Add(
 	curl_proj
 	SOURCE_DIR ${PROJECT_SOURCE_DIR}/3rd-party/curl
@@ -17,3 +15,8 @@ ExternalProject_Add(
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${target}_src)
 add_library(${target} OBJECT ${${target}_src})
 add_dependencies(${target} curl_proj)
+
+# curl 
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/curl/include) 
+link_directories(${CMAKE_CURRENT_BINARY_DIR}/curl/lib)
+link_libraries(curl)
