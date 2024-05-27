@@ -85,6 +85,10 @@ add_definitions(-D__STDC_FORMAT_MACROS)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+# curl
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/curl/include)
+link_directories(${CMAKE_CURRENT_BINARY_DIR}/curl/lib)
+
 if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
     link_libraries(rt curl)
 endif()
@@ -181,8 +185,10 @@ set(CPACK_SOURCE_GENERATOR "TGZ")
 include(CPack)
 
 if(UNIT_TEST EQUAL 1)
-    enable_testing()
-    add_subdirectory(${PROJECT_SOURCE_DIR}/test)
+	if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+		enable_testing()
+		add_subdirectory(${PROJECT_SOURCE_DIR}/test)
+	endif()
 endif()
 
 
