@@ -19,6 +19,10 @@ add_library(${target} OBJECT ${${target}_src})
 add_dependencies(${target} curl_proj)
 
 # curl 
-target_include_directories(${target} PUBLIC ${CMAKE_BINARY_DIR}/curl-release/include) 
-target_link_directories(${target} PUBLIC ${CMAKE_BINARY_DIR}/curl-release/lib)
+target_include_directories(${target} PUBLIC
+	${CMAKE_BINARY_DIR}/curl-release/include)
+
+target_link_directories(${target} PUBLIC 
+	${CMAKE_BINARY_DIR}/curl-release/lib)
+
 target_link_libraries(${target} PUBLIC curl)
