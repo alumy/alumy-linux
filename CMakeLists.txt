@@ -133,6 +133,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
     message(STATUS "Building static library for Linux")
 
     add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_src} ${objs})
+    target_link_libraries(${PROJECT_NAME} 3rd-party)
 
     add_dependencies(${PROJECT_NAME} get_git_hash)
     add_dependencies(${PROJECT_NAME} get_svn_revision)
@@ -147,9 +148,11 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
 endif()
 
 add_library("${PROJECT_NAME}-static" STATIC ${${PROJECT_NAME}_src} ${objs})
+target_link_libraries("${PROJECT_NAME}-static" 3rd-party)
 
 add_dependencies("${PROJECT_NAME}-static" get_git_hash)
 add_dependencies("${PROJECT_NAME}-static" get_svn_revision)
+add_dependencies(${PROJECT_NAME} 3rd-party)
 
 # target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
 # target_compile_options(<target> [BEFORE] <INTERFACE|PUBLIC|PRIVATE> [items1...] [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])

@@ -7,7 +7,7 @@ else()
 endif()
 
 add_library(${target} OBJECT ${osal_src})
-add_dependencies(${target} 3rd-party)
+target_link_libraries(${target} 3rd-party)
 
 target_compile_options(${target} PRIVATE
 	-Wno-format

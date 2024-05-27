@@ -9,14 +9,16 @@ ExternalProject_Add(
 	UPDATE_COMMAND ""
 	CMAKE_ARGS
 		-DCMAKE_TOOLCHAIN_FILE:FILE_PATH=${CMAKE_TOOLCHAIN_FILE}
-		-DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/curl
+		-DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/curl-release
 		-DCURL_ENABLE_SSL=OFF)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${target}_src)
+
 add_library(${target} OBJECT ${${target}_src})
+
 add_dependencies(${target} curl_proj)
 
 # curl 
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/curl/include) 
-link_directories(${CMAKE_CURRENT_BINARY_DIR}/curl/lib)
-link_libraries(curl)
+target_include_directories(${target} PUBLIC ${CMAKE_BINARY_DIR}/curl-release/include) 
+target_link_directories(${target} PUBLIC ${CMAKE_BINARY_DIR}/curl-release/lib)
+target_link_libraries(${target} PUBLIC curl)
