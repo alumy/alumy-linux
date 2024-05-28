@@ -5,7 +5,8 @@ BUILD_TYPE=$2
 UNIT_TEST=$3
 INSTALL_PREFIX=$4
 
-TOOLCHAIN_DIR=$PWD/cmake/toolchain
+ROOTDIR=$PWD
+TOOLCHAIN_DIR=$ROOTDIR/cmake/toolchain
 
 CMAKE=$(which cmake3 2>/dev/null || which cmake2 2>/dev/null || which cmake 2>/dev/null)
 
@@ -27,12 +28,18 @@ fi
 # Make build directory
 mkdir build && cd build
 
+if [ -z $INSTALL_PREFIX ]; then
+	INSTALL_PREFIX=$ROOTDIR/build/release
+fi
+
 # add options '-LAH' if you want see all variables
 $CMAKE \
 	-G "Unix Makefiles" \
 	-DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN_DIR/$TOOLCHAIN \
 	-DCMAKE_BUILD_TYPE=$BUILD_TYPE \
 	-DUNIT_TEST=$UNIT_TEST \
+	-DCONFIG_STATIC_LIB=ON \
+	-DCONFIG_SHARED_LIB=OFF \
 	-DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX \
 	../
 

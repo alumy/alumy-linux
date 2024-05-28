@@ -32,6 +32,16 @@ else()
     set(CMAKE_INSTALL_LIBDIR lib)
 endif()
 
+#############################################################################
+# Options
+#############################################################################
+option(CONFIG_SHARED_LIB "enable shared library" OFF)
+option(CONFIG_STATIC_LIB "enable shared library" ON)
+
+if(CONFIG_STATIC_LIB)
+    set(CONFIG_SHARED_LIB OFF)
+endif()
+
 if(UNIT_TEST EQUAL 1)
 	add_definitions(-DAL_UT)
 endif()
@@ -130,42 +140,46 @@ set(objs
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_NAME}_src)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-    message(STATUS "Building static library for Linux")
+    if(CONFIG_SHARED_LIB)
+    	message(STATUS "Building shared library for Linux")
 
-    add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_src} ${objs})
-    target_link_libraries(${PROJECT_NAME} 3rd-party)
+    	add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_src} ${objs})
+    	target_link_libraries(${PROJECT_NAME} 3rd-party)
 
-    add_dependencies(${PROJECT_NAME} get_git_hash)
-    add_dependencies(${PROJECT_NAME} get_svn_revision)
+    	add_dependencies(${PROJECT_NAME} get_git_hash)
+    	add_dependencies(${PROJECT_NAME} get_svn_revision)
 
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-            VERSION "${PROJECT_VERSION}"
-            SOVERSION "${PROJECT_VERSION_MAJOR}")
+    	set_target_properties(${PROJECT_NAME} PROPERTIES
+           	VERSION "${PROJECT_VERSION}"
+           	SOVERSION "${PROJECT_VERSION_MAJOR}")
 
-    install(TARGETS "${PROJECT_NAME}"
-            DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-            EXPORT "${PROJECT_NAME}")
+    	install(TARGETS "${PROJECT_NAME}"
+            	DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+            	EXPORT "${PROJECT_NAME}")
+    endif()
 endif()
 
-add_library("${PROJECT_NAME}-static" STATIC ${${PROJECT_NAME}_src} ${objs})
-target_link_libraries("${PROJECT_NAME}-static" 3rd-party)
-
-add_dependencies("${PROJECT_NAME}-static" get_git_hash)
-add_dependencies("${PROJECT_NAME}-static" get_svn_revision)
-add_dependencies(${PROJECT_NAME} 3rd-party)
-
-# target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
-# target_compile_options(<target> [BEFORE] <INTERFACE|PUBLIC|PRIVATE> [items1...] [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
-
-set_target_properties("${PROJECT_NAME}-static" PROPERTIES OUTPUT_NAME "${PROJECT_NAME}")
-set_target_properties("${PROJECT_NAME}-static" PROPERTIES PREFIX "lib")
-
-install(TARGETS "${PROJECT_NAME}-static"
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}")
-
+if(CONFIG_STATIC_LIB)
+    add_library("${PROJECT_NAME}-static" STATIC ${${PROJECT_NAME}_src} ${objs})
+    target_link_libraries("${PROJECT_NAME}-static" 3rd-party)
+    
+    add_dependencies("${PROJECT_NAME}-static" get_git_hash)
+    add_dependencies("${PROJECT_NAME}-static" get_svn_revision)
+    add_dependencies("${PROJECT_NAME}-static" 3rd-party)
+    
+    # target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
+    # target_compile_options(<target> [BEFORE] <INTERFACE|PUBLIC|PRIVATE> [items1...] [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
+    
+    set_target_properties("${PROJECT_NAME}-static" PROPERTIES OUTPUT_NAME "${PROJECT_NAME}")
+    set_target_properties("${PROJECT_NAME}-static" PROPERTIES PREFIX "lib")
+    
+    install(TARGETS "${PROJECT_NAME}-static"
+	    DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+endif()
+    
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-        FILES_MATCHING PATTERN "*.h")
+	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+	FILES_MATCHING PATTERN "*.h")
 
 include(InstallRequiredSystemLibraries)
 set(CPACK_PACKAGE_VENDOR alumy)

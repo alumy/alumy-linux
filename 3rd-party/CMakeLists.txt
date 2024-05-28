@@ -10,6 +10,8 @@ ExternalProject_Add(
 	CMAKE_ARGS
 		-DCMAKE_TOOLCHAIN_FILE:FILE_PATH=${CMAKE_TOOLCHAIN_FILE}
 		-DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/curl-release
+		-DBUILD_STATIC_LIBS=${CONFIG_STATIC_LIB}
+		-DBUILD_SHARED_LIBS=${CONFIG_SHARED_LIB}
 		-DCURL_ENABLE_SSL=OFF)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${target}_src)
@@ -25,7 +27,15 @@ target_include_directories(${target} PUBLIC
 target_link_directories(${target} PUBLIC 
 	${CMAKE_CURRENT_BINARY_DIR}/curl-release/lib)
 
-target_link_libraries(${target} PUBLIC curl)
+if(CONFIG_STATIC_LIB)
+    target_compile_options(${target} PUBLIC -fPIC)
+    target_link_libraries(${target} PUBLIC pthread)
+    target_link_libraries(${target} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/curl-release/lib/libcurl.a)
+endif()
+
+if(CONFIG_SHARED_LIB)
+    target_link_libraries(${target} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/curl-release/lib/libcurl.so)
+endif()
 
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/curl-release/include/
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
