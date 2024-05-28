@@ -10,3 +10,9 @@ cd $ROOTDIR
 cd $ROOTDIR/build
 make -j32 && make test && make install
 
+echo "checking for arm-linux-gnueabi-gcc"
+cd $ROOTDIR
+./cmake_gen.sh arm-linux-gnueabi.cmake MinSizeRel 1 $ROOTDIR/build/release
+cd $ROOTDIR/build
+make -j32 && make install
+
