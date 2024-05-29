@@ -16,3 +16,11 @@ cd $ROOTDIR
 cd $ROOTDIR/build
 make -j32 && make install
 
+echo "checking for arm-buildroot-linux-musleabi-gcc"
+cd $ROOTDIR
+./cmake_gen.sh arm-buildroot-linux-musleabi.cmake MinSizeRel 1 $ROOTDIR/build/release
+cd $ROOTDIR/build
+make -j32 && make install
+
+
+

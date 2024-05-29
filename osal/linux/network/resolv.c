@@ -7,6 +7,7 @@
 #include <resolv.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <linux/limits.h>
 #include "alumy/log.h"
 #include "alumy/errno.h"
 #include "alumy/network/manager.h"
