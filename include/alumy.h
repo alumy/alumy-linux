@@ -1,3 +1,20 @@
+/**
+ ******************************************************************************
+ * @file    alumy.h
+ * @author  jackchen
+ * @version v0.0.3
+ * @date    15-Jan-2019
+ * @brief   The header of libalumy
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; </center></h2>
+ * alumy/test.h or alumy/unity.h will overwrite the malloc and
+ * free, so please include the two headers alone or pairing for
+ * c file that called malloc and free
+ *
+ ******************************************************************************
+ */
 #ifndef __ALUMY_H
 #define __ALUMY_H 1
 
@@ -9,18 +26,34 @@
 #include "alumy/version.h"
 #include "alumy/errno.h"
 #include "alumy/log.h"
-#include "alumy/crc.h"
 #include "alumy/network.h"
-#include "alumy/mem.h"
-#include "alumy/bcd.h"
-#include "alumy/string.h"
 #include "alumy/diag.h"
 #include "alumy/bank_card.h"
-#include "alumy/errno.h"
 #include "alumy/list.h"
 #include "alumy/sys.h"
 #include "alumy/rbtree.h"
+#include "alumy/pool.h"
+#include "alumy/bcd.h"
 #include "alumy/filter.h"
+#include "alumy/mem.h"
+#include "alumy/string.h"
+#include "alumy/ascii.h"
+#include "alumy/base64.h"
+#include "alumy/byteswap.h"
+#include "alumy/fifo.h"
+#include "alumy/crc.h"
+#include "alumy/lrc.h"
+#include "alumy/bug.h"
+#include "alumy/check.h"
+#include "alumy/xyzmodem.h"
+#include "alumy/initialized.h"
+#include "alumy/pid.h"
+#include "alumy/cJSON.h"
+#include "alumy/cJSON_Utils.h"
+#include "alumy/csv.h"
+#include "alumy/time.h"
+#include "alumy/net.h"
+#include "alumy/math.h"
 
 __BEGIN_DECLS
 

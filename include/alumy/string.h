@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "alumy/types.h"
 #include "alumy/base.h"
 
@@ -37,6 +38,18 @@ size_t strlcpy(char *dst, const char *src, size_t siz);
 ssize_t str_add_null(void *dst, size_t dstsz, const void *src, size_t len);
 
 /**
+ * @brief remove the char from string
+ *
+ * @author jack (2023/11/9)
+ *
+ * @param s
+ * @param c
+ *
+ * @return char*
+ */
+char *strrmchr(char *s, char c);
+
+/**
  *
  *
  * @author chenyj (2019/8/9)
@@ -59,6 +72,19 @@ char *proc_gen_format(const char *name, int more, FILE *fh, ...);
  * @return const char*
  */
 const char *al_strerror(int32_t errnum);
+
+/**
+ *
+ *
+ * @author jack (2022/1/8)
+ *
+ * @param t
+ * @param tmstr
+ * @param size
+ *
+ * @return const char*
+ */
+const char *gen_time_str(time_t t, char *tmstr, size_t size);
 
 __END_DECLS
 

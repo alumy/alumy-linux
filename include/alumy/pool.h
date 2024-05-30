@@ -7,25 +7,53 @@
 
 __BEGIN_DECLS
 
+/**
+ * @brief memory pool
+ */
+typedef struct al_pool {
+    list_head_t free;       /*!< free list */
+    int32_t nr_free;        /*!< free items number */
+    int32_t nr_used;        /*!< used items number */
+    int32_t nr_total;       /*!< total items number */
+} al_pool_t;
+
 
 /**
- * struct pool - 内存池
+ * @brief Create a memory pool
  *
- * @free: 空闲链表
- * @nr_free: 空闲元素个数
- * @nr_used: 使用的元素个数
+ * @author chenyj (9/17/2019)
+ *
+ * @param po
+ * @param buf
+ * @param nr
+ * @param sz
+ * @param offset
  */
-typedef struct pool {
-	list_head_t free;
-	int32_t nr_free;
-	int32_t nr_used;
-	int32_t nr_total;
-}pool_t;
+void al_create_pool(al_pool_t *po,
+                    void *buf, size_t size, size_t nmemb, off_t offset);
 
+/**
+ * @brief Get item from memory pool
+ *
+ * @author chenyj (9/17/2019)
+ *
+ * @param po
+ * @param offset
+ *
+ * @return void*
+ */
+void *al_get_from_pool(al_pool_t *po, int32_t offset);
 
-void create_pool(pool_t *po, void *buf, int32_t nr, size_t sz, off_t offset);
-void *get_from_pool(pool_t *po, int32_t offset);
-void put_into_pool(pool_t *po, void *ent, int32_t offset);
+/**
+ * @brief Put the item to memory pool
+ *
+ * @author chenyj (9/17/2019)
+ *
+ * @param po
+ * @param ent
+ * @param offset
+ */
+void al_put_into_pool(al_pool_t *po, void *ent, uint_t offset);
 
 __END_DECLS
 

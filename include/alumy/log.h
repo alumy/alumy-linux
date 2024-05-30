@@ -2,6 +2,8 @@
 #define __AL_LOG_H 1
 
 #include <stdlib.h>
+#include <stdarg.h>
+#include "alumy/config.h"
 #include "alumy/types.h"
 #include "alumy/base.h"
 #include "alumy/format_color.h"
@@ -38,7 +40,7 @@ __BEGIN_DECLS
 #define AL_LOG_COLOR_D
 #define AL_LOG_COLOR_V
 
-#define AL_LOG_LINE		__FILE__, __LINE__, __func__
+#define AL_LOG_LINE     __FILE__, __LINE__, __func__
 
 #define AL_LOG_FMT(letter, fmt)		\
 	AL_LOG_COLOR_ ## letter fmt AL_PRI_RESET_COLOR "\n"
@@ -83,37 +85,58 @@ __BEGIN_DECLS
 		al_log(AL_LOG_EMERG, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
 } while (0)
 
-#define AL_BIN_D(data, len)		\
-	al_log_bin(AL_LOG_DEBUG, AL_LOG_LINE, (data), (len))
+#define AL_BIN_D(type, data, len)   do {                        \
+    if ((type)) {                                               \
+        al_log_bin(AL_LOG_DEBUG, AL_LOG_LINE, (data), (len));   \
+    }                                                           \
+} while(0)
 
-#define AL_BIN_I(data, len)		\
-	al_log_bin(AL_LOG_INFO, AL_LOG_LINE, (data), (len))
+#define AL_BIN_I(type, data, len)   do {                        \
+    if ((type)) {                                               \
+        al_log_bin(AL_LOG_INFO, AL_LOG_LINE, (data), (len));    \
+    }                                                           \
+} while(0)
 
-#define AL_BIN_N(data, len)		\
-	al_log_bin(AL_LOG_NOTICE, AL_LOG_LINE, (data), (len))
+#define AL_BIN_N(type, data, len)   do {                        \
+    if ((type)) {                                               \
+        al_log_bin(AL_LOG_NOTICE, AL_LOG_LINE, (data), (len));  \
+    }                                                           \
+} while(0)
 
-#define AL_BIN_W(data, len)		\
-	al_log_bin(AL_LOG_WARN, AL_LOG_LINE, (data), (len))
+#define AL_BIN_W(type, data, len)   do {                        \
+    if ((type)) {                                               \
+        al_log_bin(AL_LOG_WARN, AL_LOG_LINE, (data), (len));    \
+    }                                                           \
+} while(0)
 
-#define AL_BIN_E(data, len)		\
-	al_log_bin(AL_LOG_ERR, AL_LOG_LINE, (data), (len))
+#define AL_BIN_E(type, data, len)   do {                        \
+    if ((type)) {                                               \
+        al_log_bin(AL_LOG_ERR, AL_LOG_LINE, (data), (len));     \
+    }                                                           \
+} while(0)
 
-#define AL_BIN_C(data, len)		\
-	al_log_bin(AL_LOG_CRIT, AL_LOG_LINE, (data), (len))
+#define AL_BIN_C(type, data, len)   do {                        \
+    if ((type)) {                                               \
+        al_log_bin(AL_LOG_CRIT, AL_LOG_LINE, (data), (len));    \
+    }                                                           \
+} while(0)
 
-#define AL_BIN_A(data, len)		\
-	al_log_bin(AL_LOG_ALERT, AL_LOG_LINE, (data), (len))
+#define AL_BIN_A(type, data, len)   do {                        \
+    if ((type)) {                                               \
+        al_log_bin(AL_LOG_ALERT, AL_LOG_LINE, (data), (len));   \
+    }                                                           \
+} while(0)
 
 #ifndef NDEBUG
-#define AL_ASSERT(exp)	do{									\
-	if(!(exp)) {											\
-		AL_CRIT(1, "%s:%d:%s: Assertion %s failed.",		\
-				 __FILE__, __LINE__, __func__, #exp);		\
-		abort();											\
-	}														\
+#define AL_ASSERT(exp)  do{                                 \
+    if(!(exp)) {                                            \
+        AL_CRIT(1, "%s:%d:%s: Assertion %s failed.",        \
+                __FILE__, __LINE__, __func__, #exp);        \
+        abort();                                            \
+    }                                                       \
 }while(0)
 #else
-#define AL_ASSERT(exp)	((void)(exp))
+#define AL_ASSERT(exp)      (void)(exp)
 #endif
 
 int32_t al_log_open(const char *ident, ...);

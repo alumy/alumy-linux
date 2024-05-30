@@ -92,6 +92,7 @@ add_custom_target(get_git_hash
 )
 
 add_definitions(-D__STDC_FORMAT_MACROS)
+add_definitions(-DAL_USE_DEFAULT_CONFIG)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -104,9 +105,12 @@ link_libraries(m)
 add_subdirectory(${PROJECT_SOURCE_DIR}/3rd-party)
 add_subdirectory(${PROJECT_SOURCE_DIR}/crypto)
 add_subdirectory(${PROJECT_SOURCE_DIR}/crc)
+add_subdirectory(${PROJECT_SOURCE_DIR}/lrc)
 add_subdirectory(${PROJECT_SOURCE_DIR}/mem)
+add_subdirectory(${PROJECT_SOURCE_DIR}/math)
 add_subdirectory(${PROJECT_SOURCE_DIR}/sys)
 add_subdirectory(${PROJECT_SOURCE_DIR}/network)
+add_subdirectory(${PROJECT_SOURCE_DIR}/filter)
 add_subdirectory(${PROJECT_SOURCE_DIR}/string)
 add_subdirectory(${PROJECT_SOURCE_DIR}/bcd)
 add_subdirectory(${PROJECT_SOURCE_DIR}/qrcode)
@@ -117,6 +121,15 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/unity)
 add_subdirectory(${PROJECT_SOURCE_DIR}/cmock)
 add_subdirectory(${PROJECT_SOURCE_DIR}/cunit)
 add_subdirectory(${PROJECT_SOURCE_DIR}/osal)
+add_subdirectory(${PROJECT_SOURCE_DIR}/cjson)
+add_subdirectory(${PROJECT_SOURCE_DIR}/libcsv)
+add_subdirectory(${PROJECT_SOURCE_DIR}/protobuf-c)
+add_subdirectory(${PROJECT_SOURCE_DIR}/pid)
+add_subdirectory(${PROJECT_SOURCE_DIR}/lzma)
+add_subdirectory(${PROJECT_SOURCE_DIR}/xyzmodem)
+add_subdirectory(${PROJECT_SOURCE_DIR}/time)
+add_subdirectory(${PROJECT_SOURCE_DIR}/net)
+add_subdirectory(${PROJECT_SOURCE_DIR}/expect)
 
 #############################################################################
 # libalumy
@@ -126,8 +139,11 @@ set(objs
 		$<TARGET_OBJECTS:3rd-party>
 		$<TARGET_OBJECTS:sys>
 		$<TARGET_OBJECTS:crypto>
+		$<TARGET_OBJECTS:cunit>
 		$<TARGET_OBJECTS:crc>
+		$<TARGET_OBJECTS:lrc>
 		$<TARGET_OBJECTS:mem>
+		$<TARGET_OBJECTS:math>
 		$<TARGET_OBJECTS:network>
 		$<TARGET_OBJECTS:string>
 		$<TARGET_OBJECTS:bcd>
@@ -135,7 +151,16 @@ set(objs
 		$<TARGET_OBJECTS:bcc>
 		$<TARGET_OBJECTS:base64>
 		$<TARGET_OBJECTS:osal>
-		$<TARGET_OBJECTS:card>)
+		$<TARGET_OBJECTS:card>
+		$<TARGET_OBJECTS:cjson>
+		$<TARGET_OBJECTS:libcsv>
+		$<TARGET_OBJECTS:protobuf-c>
+		$<TARGET_OBJECTS:pid>
+		$<TARGET_OBJECTS:lzma>
+		$<TARGET_OBJECTS:xyzmodem>
+		$<TARGET_OBJECTS:time>
+		$<TARGET_OBJECTS:net>
+		$<TARGET_OBJECTS:expect>)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_NAME}_src)
 
