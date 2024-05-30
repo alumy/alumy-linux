@@ -35,11 +35,11 @@ endif()
 #############################################################################
 # Options
 #############################################################################
-option(CONFIG_SHARED_LIB "enable shared library" OFF)
-option(CONFIG_STATIC_LIB "enable shared library" ON)
+option(BUILD_SHARED_LIBS "enable shared library" OFF)
+option(BUILD_STATIC_LIBS "enable shared library" ON)
 
-if(CONFIG_STATIC_LIB)
-    set(CONFIG_SHARED_LIB OFF)
+if(BUILD_STATIC_LIBS)
+	set(BUILD_SHARED_LIBS OFF)
 endif()
 
 if(UNIT_TEST EQUAL 1)
@@ -97,7 +97,7 @@ add_definitions(-DAL_USE_DEFAULT_CONFIG)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-    link_libraries(rt curl)
+    link_libraries(rt)
 endif()
 
 link_libraries(m)
@@ -165,7 +165,7 @@ set(objs
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_NAME}_src)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-    if(CONFIG_SHARED_LIB)
+    if(BUILD_SHARED_LIBS)
     	message(STATUS "Building shared library for Linux")
 
     	add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_src} ${objs})
@@ -184,7 +184,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
     endif()
 endif()
 
-if(CONFIG_STATIC_LIB)
+if(BUILD_STATIC_LIBS)
     add_library("${PROJECT_NAME}-static" STATIC ${${PROJECT_NAME}_src} ${objs})
     target_link_libraries("${PROJECT_NAME}-static" 3rd-party)
     

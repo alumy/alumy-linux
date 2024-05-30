@@ -1,3 +1,6 @@
 [submodule "3rd-party/curl"]
 	path = 3rd-party/curl
 	url = ../../curl/curl.git
+[submodule "3rd-party/iniparser"]
+	path = 3rd-party/iniparser
+	url = ../../ndevilla/iniparser.git
