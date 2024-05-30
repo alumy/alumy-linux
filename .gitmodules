@@ -1,8 +1,6 @@
 [submodule "3rd-party/curl"]
 	path = 3rd-party/curl
 	url = ../../curl/curl.git
-	branch = curl-8_8_0
 [submodule "3rd-party/iniparser"]
 	path = 3rd-party/iniparser
 	url = ../../ndevilla/iniparser.git
-	branch = v4.4.2
