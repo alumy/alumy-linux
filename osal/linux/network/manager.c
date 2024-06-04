@@ -73,5 +73,34 @@ int_fast32_t nm_set_ip(const char *ifname, bool dhcp,
 	return 0;
 }
 
+int_t al_nm_set_ip_ifconfig(const char *ifname, bool dhcp,
+                            const char *ip, const char *mask, const char *gw)
+{
+    char cmd[128];
+    ssize_t n;
+
+    snprintf(cmd, sizeof(cmd), "ifconfig %s down", ifname);
+    system(cmd);
+
+    snprintf(cmd, sizeof(cmd), "ifconfig %s up", ifname);
+    system(cmd);
+
+    if (dhcp) {
+        snprintf(cmd, sizeof(cmd), "udhcpc -i %s", ifname);
+        system(cmd);
+
+        return 0;
+    }
+
+    snprintf(cmd, sizeof(cmd), "ifconfig %s %s netmask %s", ifname, ip, mask);
+    system(cmd);
+
+    if (gw) {
+        snprintf(cmd, sizeof(cmd), "route add default gw %s", gw);
+    }
+
+    return 0;
+}
+
 __END_DECLS
 

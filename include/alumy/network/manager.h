@@ -23,7 +23,11 @@ int_fast32_t al_nm_set_ip(const char *ifname, bool dhcp,
 						  const char *ip, const char *mask, const char *gw)
 				__nonnull((1, 3, 4, 5));
 
-
+/**
+ * Setup ip via ifconfig
+ */
+int_t al_nm_set_ip_ifconfig(const char *ifname, bool dhcp,
+                            const char *ip, const char *mask, const char *gw);
 
 /**
  * Check if the ip address is valid, support for ipv4 and ipv6
