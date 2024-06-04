@@ -76,8 +76,7 @@ int_fast32_t nm_set_ip(const char *ifname, bool dhcp,
 int_t al_nm_set_ip_ifconfig(const char *ifname, bool dhcp,
                             const char *ip, const char *mask, const char *gw)
 {
-    char cmd[128];
-    ssize_t n;
+    char cmd[256];
 
     snprintf(cmd, sizeof(cmd), "ifconfig %s down", ifname);
     system(cmd);
