@@ -8,10 +8,13 @@
 
 __BEGIN_DECLS
 
+struct al_slip;
+typedef struct al_slip al_slip_t;
+
 typedef struct al_slip_opt {
-	int_t (*sl_putc)(int_t c);
-	int_t (*sl_getc)(void);
-	int_t (*sl_flush)(void);		/* let to NULL, if not need */
+    int_t (*sl_putc)(al_slip_t *slip, int_t c);
+    int_t (*sl_getc)(al_slip_t *slip);
+    int_t (*sl_flush)(al_slip_t *slip);    /* let to NULL, if not need */
 } al_slip_opt_t;
 
 typedef struct al_slip {
@@ -22,11 +25,13 @@ typedef struct al_slip {
 	size_t recv_len;
 	int_t recv_state;
 
-	al_slip_opt_t opt;
+    const al_slip_opt_t * const opt;
+
+    void *user_data;
 } al_slip_t;
 
 int_t al_slip_init(al_slip_t *slip, void *recv_buf, size_t recv_size,
-				   const al_slip_opt_t *opt);
+                   const al_slip_opt_t *opt, void *user_data);
 
 size_t al_slip_write(al_slip_t *slip, const void *data, size_t len);
 
