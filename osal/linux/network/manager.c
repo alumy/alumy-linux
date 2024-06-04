@@ -78,6 +78,9 @@ int_t al_nm_set_ip_ifconfig(const char *ifname, bool dhcp,
 {
     char cmd[256];
 
+    snprintf(cmd, sizeof(cmd), "killall -9 udhcpc");
+    system(cmd);
+
     snprintf(cmd, sizeof(cmd), "ifconfig %s down", ifname);
     system(cmd);
 
