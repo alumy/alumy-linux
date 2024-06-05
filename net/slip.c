@@ -20,12 +20,14 @@ enum {
 };
 
 int_t al_slip_init(al_slip_t *slip, void *recv_buf, size_t recv_size,
-                   const al_slip_opt_t *opt, void *user_data)
+                   const al_slip_opt_t *opt, const al_slip_cb_t *cb,
+                   void *user_data)
 {
 	AL_CHECK_RET(slip != NULL, EINVAL, -1);
 	AL_CHECK_RET(recv_buf != NULL, EINVAL, -1);
 	AL_CHECK_RET(recv_size > 0, EINVAL, -1);
 	AL_CHECK_RET(opt != NULL, EINVAL, -1);
+    AL_CHECK_RET(cb != NULL, EINVAL, -1);
 	AL_CHECK_RET(opt->sl_putc != NULL, EINVAL, -1);
 	AL_CHECK_RET(opt->sl_getc != NULL, EINVAL, -1);
 
@@ -38,6 +40,7 @@ int_t al_slip_init(al_slip_t *slip, void *recv_buf, size_t recv_size,
     slip->user_data = user_data;
 
     *((const al_slip_opt_t **)&slip->opt) = opt;
+    *((const al_slip_cb_t **)&slip->cb) = cb;
 
 	return 0;
 }
@@ -96,12 +99,16 @@ __static_inline__ size_t al_slip_recv_byte(al_slip_t *slip, int_t c)
 		switch (c) {
 		case SLIP_END:
 			if (slip->recv_len > 0) {
+                if (slip->cb->recv_done) {
+                    slip->cb->recv_done(slip, slip->recv_buf, slip->recv_len);
+                }
+
 				recv_len = slip->recv_len;
 
 				slip->recv_len = 0;
-				slip->recv_wp = 0;
+                slip->recv_wp = 0;
 
-				return recv_len;
+                return recv_len;
 			}
 
 			return 0;
@@ -158,6 +165,17 @@ size_t al_slip_recv(al_slip_t *slip)
 	}
 
 	return len;
+}
+
+void al_slip_recv_1(al_slip_t *slip, const void *data, size_t len)
+{
+    const uint8_t *p = (const uint8_t *)data;
+
+    BUG_ON(data == NULL);
+
+    while (len--) {
+        al_slip_recv_byte(slip, *p++);
+    }
 }
 
 void *al_slip_get_recv(al_slip_t *slip)
