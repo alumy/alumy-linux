@@ -18,5 +18,3 @@ endif()
 
 set(CMAKE_EXE_LINKER_FLAGS
         "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map,--cref" CACHE STRING "" FORCE)
-
-link_directories(/home/chenyj/workspace/f1c100s/buildroot/output/target/lib)
