@@ -200,12 +200,6 @@ typedef char char_t;
 #define __char_t_defined
 #endif
 
-#if !defined(__aarch64__)
-typedef uint16_t __u16;
-typedef uint32_t __u32;
-typedef uint64_t __u64;
-#endif
-
 typedef __u16 u16;
 typedef __u32 u32;
 typedef __u64 u64;
