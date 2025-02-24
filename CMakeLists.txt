@@ -167,6 +167,8 @@ set(objs
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_NAME}_src)
 
+include(${PROJECT_SOURCE_DIR}/cmake/check_type_size.cmake)
+
 if(${CMAKE_SYSTEM_NAME} STREQUAL Linux)
     if(BUILD_SHARED_LIBS)
     	message(STATUS "Building shared library for Linux")

@@ -1,14 +1,15 @@
 #ifndef __AL_TYPES_H
 #define __AL_TYPES_H 1
 
-#include "alumy/config.h"
-#include "alumy/typecheck.h"
-#include "alumy/bits.h"
-
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <linux/types.h>
 #include <sys/types.h>
+
+#include "alumy/config.h"
+#include "alumy/typecheck.h"
+
 
 #ifndef __inline
 #define __inline		inline
@@ -199,13 +200,15 @@ typedef char char_t;
 #define __char_t_defined
 #endif
 
-typedef uint16_t u16;
-typedef uint32_t u32;
-typedef uint64_t u64;
-
+#if !defined(__aarch64__)
 typedef uint16_t __u16;
 typedef uint32_t __u32;
 typedef uint64_t __u64;
+#endif
+
+typedef __u16 u16;
+typedef __u32 u32;
+typedef __u64 u64;
 
 /* bsd */
 typedef unsigned char       u_char;
