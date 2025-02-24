@@ -7,7 +7,7 @@
 #include "alumy/cdefs.h"
 #endif
 
-#if  defined ( __GNUC__ ) || defined ( __clang__ )
+#if defined ( __GNUC__ ) || defined ( __clang__ )
 
   #ifndef __weak
     #define __weak   __attribute__((weak))
@@ -64,9 +64,17 @@
   #ifndef __likely
     #define __likely(x)			__builtin_expect(!!(x), 1)
   #endif
+
+  #ifndef likely
+    #define likely(x)         __likely((x))
+  #endif
   
   #ifndef __unlikely
     #define __unlikely(x)		__builtin_expect(!!(x), 0)
+  #endif
+
+  #ifndef unlikely
+    #define unlikely(x)         __unlikely((x))
   #endif
 
   #ifndef __ramfunc
@@ -93,6 +101,18 @@
    *    must not be NULL.  */
   #ifndef __nonnull
     # define __nonnull(params) __attribute__ ((__nonnull__ params))
+  #endif
+
+  #ifndef __must_check
+    #define __must_check __attribute__((warn_unused_result))
+  #endif
+
+  #ifndef __builtin_constant_p
+    #define __builtin_constant_p(x)     (!!(x))
+  #endif
+
+  #ifndef __has_builtin
+    #define __has_builtin(x)    0
   #endif
 
 #endif /* __GNUC__ */
@@ -139,8 +159,16 @@
     #define __likely(x)			__builtin_expect(!!(x), 1)
   #endif
 
+  #ifndef likely
+    #define likely(x)         __likely((x))
+  #endif
+
   #ifndef __unlikely
     #define __unlikely(x)		__builtin_expect(!!(x), 0)
+  #endif
+
+  #ifndef unlikely
+    #define unlikely(x)         __unlikely((x))
   #endif
 
   #ifndef __ramfunc
@@ -167,6 +195,18 @@
    *    must not be NULL.  */
   #ifndef __nonnull
     # define __nonnull(params) __attribute__ ((__nonnull__ params))
+  #endif
+
+  #ifndef __must_check
+    #define __must_check __attribute__((warn_unused_result))
+  #endif
+
+  #ifndef __builtin_constant_p
+    #define __builtin_constant_p(x)     (!!(x))
+  #endif
+
+  #ifndef __has_builtin
+    #define __has_builtin(x)    0
   #endif
 
 #endif /* __CC_ARM */

@@ -45,44 +45,44 @@ __BEGIN_DECLS
 #define AL_LOG_FMT(letter, fmt)		\
 	AL_LOG_COLOR_ ## letter fmt AL_PRI_RESET_COLOR "\n"
 
-#define AL_DEBUG(type, fmt, ...)	do {							\
-	if (type)														\
-		al_log(AL_LOG_DEBUG, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
+#define AL_DEBUG(type, fmt, ...)    do {                                    \
+    if ((type))                                                               \
+        al_log(AL_LOG_DEBUG, AL_LOG_LINE, AL_LOG_FMT(D, fmt), ##__VA_ARGS__); \
 } while (0)
 
 #define AL_INFO(type, fmt, ...)	do {								\
-	if (type)														\
-		al_log(AL_LOG_INFO, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
+	if ((type))														\
+		al_log(AL_LOG_INFO, AL_LOG_LINE, AL_LOG_FMT(I, fmt), ##__VA_ARGS__); \
 } while (0)
 
 #define AL_NOTICE(type, fmt, ...)	do {							\
-	if (type)														\
-		al_log(AL_LOG_NOTICE, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
+	if ((type))														\
+		al_log(AL_LOG_NOTICE, AL_LOG_LINE, AL_LOG_FMT(N, fmt), ##__VA_ARGS__); \
 } while (0)
 
 #define AL_WARN(type, fmt, ...)	do {								\
-	if (type)														\
-		al_log(AL_LOG_WARN, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
+	if ((type))														\
+		al_log(AL_LOG_WARN, AL_LOG_LINE, AL_LOG_FMT(W, fmt), ##__VA_ARGS__); \
 } while (0)
 
 #define AL_ERROR(type, fmt, ...)	do {							\
-	if (type)														\
-		al_log(AL_LOG_ERR, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
+	if ((type))														\
+		al_log(AL_LOG_ERR, AL_LOG_LINE, AL_LOG_FMT(E, fmt), ##__VA_ARGS__); \
 } while (0)
 
 #define AL_CRIT(type, fmt, ...)	do {								\
-	if (type)														\
-		al_log(AL_LOG_CRIT, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
+	if ((type))														\
+		al_log(AL_LOG_CRIT, AL_LOG_LINE, AL_LOG_FMT(C, fmt), ##__VA_ARGS__); \
 } while (0)
 
 #define AL_ALERT(type, fmt, ...)	do {							\
-	if (type)														\
-		al_log(AL_LOG_ALERT, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
+	if ((type))														\
+		al_log(AL_LOG_ALERT, AL_LOG_LINE, AL_LOG_FMT(A, fmt), ##__VA_ARGS__); \
 } while (0)
 
 #define AL_EMERG(type, fmt, ...)	do {							\
-	if (type)														\
-		al_log(AL_LOG_EMERG, AL_LOG_LINE, fmt, ##__VA_ARGS__);		\
+	if ((type))														\
+		al_log(AL_LOG_EMERG, AL_LOG_LINE, AL_LOG_FMT(A, fmt), ##__VA_ARGS__); \
 } while (0)
 
 #define AL_BIN_D(type, data, len)   do {                        \

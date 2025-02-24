@@ -1,6 +1,10 @@
 #ifndef __AL_TYPES_H
 #define __AL_TYPES_H 1
 
+#include "alumy/config.h"
+#include "alumy/typecheck.h"
+#include "alumy/bits.h"
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -60,13 +64,62 @@
 #endif
 #endif
 
+/**
+ * min3 - return minimum of three values
+ * @x: first value
+ * @y: second value
+ * @z: third value
+ */
+#ifndef min3
+#if defined(__GNUC__)
+    #define min3(x, y, z) min((typeof(x))min((x), (y)), (z))
+#elif defined(__CC_ARM)
+    #define min3(x, y, z) min(min((x), (y)), (z))
+#else
+    #define min3(x, y, z) min(min((x), (y)), (z))
+#endif
+#endif
+
+/**
+ * max3 - return maximum of three values
+ * @x: first value
+ * @y: second value
+ * @z: third value
+ */
+#ifndef max3
+#if defined(__GNUC__)
+    #define max3(x, y, z) max((typeof(x))max((x), (y)), (z))
+#elif defined(__CC_ARM)
+    #define max3(x, y, z) max(max((x), (y)), (z))
+#else
+    #define max3(x, y, z) max(max((x), (y)), (z))
+#endif
+#endif
+
+/*
+ *  * ..and if you can't take the strict
+ *   * types, you can specify one yourself.
+ *    *
+ *     * Or not use min/max/clamp at all, of course.
+ *      */
+#define min_t(type, x, y) ({              \
+    type __min1 = (x);                    \
+    type __min2 = (y);                    \
+    __min1 < __min2 ? __min1: __min2; })
+
+#define max_t(type, x, y) ({              \
+    type __max1 = (x);                    \
+    type __max2 = (y);                    \
+    __max1 > __max2 ? __max1: __max2; })
+
 #ifndef ARRAY_SIZE
 #define ARRAY_SIZE(a) (sizeof((a)) / sizeof((a)[0]))
 #endif
 
-#ifndef is_power_of_2
-#define is_power_of_2(x)        ((x) != 0 && (((x) & ((x) - 1)) == 0))
-#endif
+#define __KERNEL_DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
+
+#define DECLARE_BITMAP(name,bits) \
+    unsigned long name[BITS_TO_LONGS(bits)]
 
 #if !(defined( __off_t_defined) || \
 	  defined(__DEFINED_off_t))
@@ -145,6 +198,26 @@ typedef uint_t bool_t;
 typedef char char_t;
 #define __char_t_defined
 #endif
+
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+
+typedef uint16_t __u16;
+typedef uint32_t __u32;
+typedef uint64_t __u64;
+
+/* bsd */
+typedef unsigned char       u_char;
+typedef unsigned short      u_short;
+typedef unsigned int        u_int;
+typedef unsigned long       u_long;
+
+/* sysv */
+typedef unsigned char       unchar;
+typedef unsigned short      ushort;
+typedef unsigned int        uint;
+typedef unsigned long       ulong;
 
 #endif	/* end of _TYPES_H */
 

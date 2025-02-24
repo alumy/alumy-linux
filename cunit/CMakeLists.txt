@@ -13,3 +13,10 @@ target_compile_options(${target} PRIVATE
 	-Wno-char-subscripts 
 	-Wno-error=unused-result 
 	-Wno-unused-result)
+
+target_include_directories(${target}
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/letter-shell-3.1.2/src
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/mbedtls-3.2.1/library
+	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/mbedtls-3.2.1/include
+	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lwip-2.1.3/src/include)
+

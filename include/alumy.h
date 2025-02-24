@@ -28,7 +28,6 @@
 #include "alumy/log.h"
 #include "alumy/network.h"
 #include "alumy/diag.h"
-#include "alumy/bank_card.h"
 #include "alumy/list.h"
 #include "alumy/sys.h"
 #include "alumy/rbtree.h"

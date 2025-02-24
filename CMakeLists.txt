@@ -114,7 +114,6 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/filter)
 add_subdirectory(${PROJECT_SOURCE_DIR}/string)
 add_subdirectory(${PROJECT_SOURCE_DIR}/bcd)
 add_subdirectory(${PROJECT_SOURCE_DIR}/qrcode)
-add_subdirectory(${PROJECT_SOURCE_DIR}/card)
 add_subdirectory(${PROJECT_SOURCE_DIR}/bcc)
 add_subdirectory(${PROJECT_SOURCE_DIR}/base64)
 add_subdirectory(${PROJECT_SOURCE_DIR}/unity)
@@ -130,6 +129,8 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/xyzmodem)
 add_subdirectory(${PROJECT_SOURCE_DIR}/time)
 add_subdirectory(${PROJECT_SOURCE_DIR}/net)
 add_subdirectory(${PROJECT_SOURCE_DIR}/expect)
+add_subdirectory(${PROJECT_SOURCE_DIR}/bitops)
+add_subdirectory(${PROJECT_SOURCE_DIR}/lib)
 
 #############################################################################
 # libalumy
@@ -144,6 +145,7 @@ set(objs
 		$<TARGET_OBJECTS:lrc>
 		$<TARGET_OBJECTS:mem>
 		$<TARGET_OBJECTS:math>
+		$<TARGET_OBJECTS:filter>
 		$<TARGET_OBJECTS:network>
 		$<TARGET_OBJECTS:string>
 		$<TARGET_OBJECTS:bcd>
@@ -151,7 +153,6 @@ set(objs
 		$<TARGET_OBJECTS:bcc>
 		$<TARGET_OBJECTS:base64>
 		$<TARGET_OBJECTS:osal>
-		$<TARGET_OBJECTS:card>
 		$<TARGET_OBJECTS:cjson>
 		$<TARGET_OBJECTS:libcsv>
 		$<TARGET_OBJECTS:protobuf-c>
@@ -160,7 +161,9 @@ set(objs
 		$<TARGET_OBJECTS:xyzmodem>
 		$<TARGET_OBJECTS:time>
 		$<TARGET_OBJECTS:net>
-		$<TARGET_OBJECTS:expect>)
+		$<TARGET_OBJECTS:expect>
+		$<TARGET_OBJECTS:lib>
+		$<TARGET_OBJECTS:bitops>)
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_NAME}_src)
 

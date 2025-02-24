@@ -6,48 +6,9 @@
 #include "alumy/byteorder.h"
 #include "alumy/types.h"
 #include "alumy/base.h"
+#include "alumy/bitops/bitops.h"
 
 __BEGIN_DECLS
-
-#ifndef BIT_COUNT
-#define BIT_COUNT(x)			((x) << 3)
-#endif
-
-#ifndef BIT
-#define BIT(x)					(1u << (x))
-#endif
-
-#ifndef set_bit
-#define set_bit(reg, bit)       ((reg) |= (1u << (bit)))
-#endif
-
-#ifndef clear_bit
-#define clear_bit(reg, bit)     ((reg) &= ~(1u << (bit)))
-#endif
-
-#ifndef get_bit
-#define get_bit(reg, bit)       (!!((reg) & (1u << (bit))))
-#endif
-
-#ifndef toggle_bit
-#define toggle_bit(reg, bit)	((reg) ^= (1u << (bit)))
-#endif
-
-#ifndef set_bit_64
-#define set_bit_64(reg, bit)		((reg) |= (1ull << (bit)))
-#endif
-
-#ifndef clear_bit_64
-#define clear_bit_64(reg, bit)		((reg) &= ~(1ull << (bit)))
-#endif
-
-#ifndef get_bit_64
-#define get_bit_64(reg, bit)		(!!((reg) & (1ull << (bit))))
-#endif
-
-#ifndef toggle_bit_64
-#define toggle_bit_64(reg, bit)	((reg) ^= (1ull << (bit)))
-#endif
 
 __static_inline__ int al_popcount(int x)
 {
@@ -238,24 +199,33 @@ __static_inline__ int al_flsl(long mask)
 #endif
 }
 
-__static_inline__ int al_fls(int mask)
+static __always_inline int al_fls(uint32_t x)
 {
 #if __has_builtin(__builtin_fls)
     return __builtin_fls(mask);
 #elif __has_builtin(__builtin_clz)
-    if (mask == 0)
+    if (x == 0)
         return (0);
 
-    return (sizeof(mask) << 3) - __builtin_clz(mask);
+    return (sizeof(x) << 3) - __builtin_clz(x);
 #else
-    int bit;
-
-    if (mask == 0)
-        return (0);
-    for (bit = 1; mask != 1; bit++)
-        mask = (unsigned)mask >> 1;
-    return (bit);
+    return generic_fls(x);
 #endif
+}
+
+static __always_inline int al_fls64(uint64_t x)
+{
+    uint32_t h = x >> 32;
+    if (h)
+        return al_fls(h) + 32;
+    return al_fls(x);
+}
+
+static inline unsigned int al_fls_long(unsigned long l)
+{
+    if (sizeof(l) == 4)
+        return al_fls(l);
+    return al_fls64(l);
 }
 
 __static_inline__ void al_bzero(void *s, size_t n)
