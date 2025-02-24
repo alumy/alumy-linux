@@ -81,13 +81,14 @@ __BEGIN_DECLS
  * Rounds @x down to next multiple of @y. If @y will always be a power
  * of 2, consider using the faster round_down().
  */
+#ifndef rounddown
 #define rounddown(x, y) (				\
 {							\
 	typeof(x) __x = (x);				\
 	__x - (__x % (y));				\
 }							\
 )
-
+#endif
 
 __END_DECLS
 
