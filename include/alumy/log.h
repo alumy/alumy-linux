@@ -142,6 +142,10 @@ __BEGIN_DECLS
 int32_t al_log_open(const char *ident, ...);
 int32_t al_log_close();
 
+const char *al_log_timestamp(void);
+
+void al_vlog(int32_t pri, const char *fmt, va_list ap);
+
 void al_log(int32_t pri, const char *file, int32_t line, const char *func,
 			const char *fmt, ...);
 

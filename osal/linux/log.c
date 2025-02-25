@@ -15,7 +15,7 @@ __BEGIN_DECLS
 
 #define BIN_LINE_SIZE	16
 
-static const char hex[] __used = "0123456789ABCDEF";
+static const char hex[] = "0123456789ABCDEF";
 
 static int32_t logmask = 0xFF;
 
@@ -48,11 +48,8 @@ int32_t al_log_close(void)
 	return 0;
 }
 
-static void al_vlog(int32_t pri, const char *fmt, va_list ap)
+__weak void al_vlog(int32_t pri, const char *fmt, va_list ap)
 {
-    char tmstr[64];
-    struct tm tm;
-    time_t now = time(NULL);
     FILE *stream = stdout;
 
     if (pri == AL_LOG_EMERG || pri == AL_LOG_ERR ||
@@ -61,17 +58,31 @@ static void al_vlog(int32_t pri, const char *fmt, va_list ap)
         stream = stderr;
     }
 
-    localtime_r(& now, &tm);
+    fprintf(stream, "%s ", al_log_timestamp());
+    vfprintf(stream, fmt, ap);
+}
+
+__weak const char *al_log_timestamp(void)
+{
+	static char tmstr[64];
+    struct tm tm;
+    time_t now = time(NULL);
+	
+	localtime_r(&now, &tm);
     strftime(tmstr, sizeof(tmstr), "%F %T", &tm);
 
-    fprintf(stream, "%s ", tmstr);
-    vfprintf(stream, fmt, ap);
-    fprintf(stream, "\n");
+    /* snprintf(str, sizeof(str), "[%5ld.%03d]", (long)tv_sec, (int)tv_msec); */
+
+    return tmstr;
 }
 
 void al_log(int32_t pri, const char *file, int32_t line, const char *func,
 			const char *fmt, ...)
 {
+	UNUSED(file);
+	UNUSED(line);
+	UNUSED(func);
+	
 	if (pri & ~(AL_LOG_PRIMASK)) {
 		/* unknown prio mask */
 		pri &= AL_LOG_PRIMASK;
@@ -133,11 +144,12 @@ static size_t hex_addr_fmt(char buf[8], intptr_t addr)
 static ssize_t hex_raw_fmt_line(char *buf, size_t bufsz, intptr_t addr,
 								const void *data, size_t len)
 {
-	size_t line_size = 8 + 2 + 16 * 3 + 2 + 16 + 1 + 1;
+    size_t line_size = 8 + 2 + 16 * 3 + 2 + 16 + 1;
+    size_t i;
 
-	if ((len > BIN_LINE_SIZE) || (bufsz < line_size)) {
-		return -1;
-	}
+    if ((len > BIN_LINE_SIZE) || (bufsz < line_size)) {
+        return -1;
+    }
 
 	char *_buf = buf;
 
@@ -155,53 +167,72 @@ static ssize_t hex_raw_fmt_line(char *buf, size_t bufsz, intptr_t addr,
 
 	const uint8_t *rp = (const uint8_t *)data;
 
-	for (int_fast32_t i = 0; i < len; ++i) {
-		*h_wp++ = hex[*rp >> 4 & 0x0F];
-		*h_wp++ = hex[*rp & 0x0F];
-		*h_wp++ = ' ';
+	for (i = 0; i < len; ++i) {
+        *h_wp++ = hex[(*rp >> 4) & 0x0F];
+        *h_wp++ = hex[*rp & 0x0F];
+        *h_wp++ = ' ';
 
-		*c_wp++ = isprint(*rp) ? *rp : '.';
+#if defined (__GNUC__)
+        *c_wp++ = isprint(*rp) ? (char)*rp : '.';
+#elif defined (__CC_ARM)
+        *c_wp++ = ((*rp <= 0x7F) && isprint(*rp)) ? *rp : '.';
+#else
+        *c_wp++ = ((*rp <= 0x7F) && isprint(*rp)) ? *rp : '.';
+#endif
 
-		++rp;
-	}
+        ++rp;
+    }
 
-	for (int_fast32_t i = len; i < BIN_LINE_SIZE; ++i) {
+	for (i = len; i < BIN_LINE_SIZE; ++i) {
 		*h_wp++ = ' ';
 		*h_wp++ = ' ';
 		*h_wp++ = ' ';
 		*c_wp++ = ' ';
 	}
 
-	_buf[77] = 0;
+    _buf[76] = 0;
 
-	return line_size - 1;
+	return (ssize_t)line_size - 1;
 }
 
 void al_log_bin(int32_t pri,
 				const char *file, int32_t line, const char *func,
 				const void *data, size_t len)
 {
-	int_fast32_t nline = len >> 4;
-	int_fast32_t remain = len & 0x0F;
+    static const char *fmt_tab[] = {
+        [AL_LOG_DEBUG] = AL_LOG_FMT(D, "%s"),
+        [AL_LOG_INFO] = AL_LOG_FMT(I, "%s"),
+        [AL_LOG_NOTICE] = AL_LOG_FMT(N, "%s"),
+        [AL_LOG_WARN] = AL_LOG_FMT(W, "%s"),
+        [AL_LOG_ERR] = AL_LOG_FMT(E, "%s"),
+        [AL_LOG_CRIT] = AL_LOG_FMT(C, "%s"),
+        [AL_LOG_ALERT] = AL_LOG_FMT(A, "%s"),
+        [AL_LOG_EMERG] = AL_LOG_FMT(E, "%s"),
+    };
 
-	intptr_t addr = 0;
-	const uint8_t *rp = (const uint8_t *)data;
+    char buf[80];
+    const char *fmt = AL_LOG_FMT(D, "%s");
+    int32_t nline = len >> 4;
+    int32_t remain = len & 0x0F;
+    intptr_t addr = 0;
+    const uint8_t *rp = (const uint8_t *)data;
 
-	while (nline--) {
-		char buf[128];
-		hex_raw_fmt_line(buf, sizeof(buf), addr, rp + addr, BIN_LINE_SIZE);
-		addr += BIN_LINE_SIZE;
+    if (pri < ARRAY_SIZE(fmt_tab)) {
+        fmt = fmt_tab[pri];
+    }
 
-		al_log(pri, file, line, func, "%s", buf);
-	}
+    while (nline--) {
+        hex_raw_fmt_line(buf, sizeof(buf), addr, rp + addr, BIN_LINE_SIZE);
+        addr += BIN_LINE_SIZE;
 
-	if (remain > 0) {
-		char buf[128];
-		hex_raw_fmt_line(buf, sizeof(buf), addr, rp + addr, remain);
+        al_log(pri, file, line, func, fmt, buf);
+    }
 
-		al_log(pri, file, line, func, "%s", buf);
-	}
+    if (remain > 0) {
+        hex_raw_fmt_line(buf, sizeof(buf), addr, rp + addr, (size_t)remain);
 
+        al_log(pri, file, line, func, fmt, buf);
+    }
 }
 
 int32_t al_log_set_mask(int32_t mask)
@@ -216,4 +247,3 @@ int32_t al_log_set_mask(int32_t mask)
 }
 
 __END_DECLS
-
