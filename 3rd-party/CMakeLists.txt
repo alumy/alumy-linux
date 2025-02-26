@@ -27,7 +27,11 @@ ExternalProject_Add(
 		-DBUILD_STATIC_LIBS=${BUILD_STATIC_LIBS}
 		-DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS})
 
+
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} ${target}_src)
+
+set(${target}_src ${${target}_src} 
+	${CMAKE_CURRENT_SOURCE_DIR}/protobuf-c/protobuf-c/protobuf-c.c)
 
 add_library(${target} OBJECT ${${target}_src})
 
@@ -35,7 +39,8 @@ add_dependencies(${target} curl_proj)
 add_dependencies(${target} iniparser_proj)
 
 target_include_directories(${target} PUBLIC
-	${CMAKE_CURRENT_BINARY_DIR}/install/include)
+	${CMAKE_CURRENT_BINARY_DIR}/install/include
+	${CMAKE_CURRENT_SOURCE_DIR}/protobuf-c/protobuf-c)
 
 target_link_directories(${target} PUBLIC 
 	${CMAKE_CURRENT_BINARY_DIR}/install/lib)
@@ -53,6 +58,11 @@ if(BUILD_SHARED_LIBS)
 	    ${CMAKE_CURRENT_BINARY_DIR}/install/lib/libcurl.so
 	    ${CMAKE_CURRENT_BINARY_DIR}/install/lib/libiniparser.so)
 endif()
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/protobuf-c/
+	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+	USE_SOURCE_PERMISSIONS
+	FILES_MATCHING PATTERN "*.h")
 
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/install/include/
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}

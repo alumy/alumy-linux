@@ -122,7 +122,6 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/cunit)
 add_subdirectory(${PROJECT_SOURCE_DIR}/osal)
 add_subdirectory(${PROJECT_SOURCE_DIR}/cjson)
 add_subdirectory(${PROJECT_SOURCE_DIR}/libcsv)
-add_subdirectory(${PROJECT_SOURCE_DIR}/protobuf-c)
 add_subdirectory(${PROJECT_SOURCE_DIR}/pid)
 add_subdirectory(${PROJECT_SOURCE_DIR}/lzma)
 add_subdirectory(${PROJECT_SOURCE_DIR}/xyzmodem)
@@ -155,7 +154,6 @@ set(objs
 		$<TARGET_OBJECTS:osal>
 		$<TARGET_OBJECTS:cjson>
 		$<TARGET_OBJECTS:libcsv>
-		$<TARGET_OBJECTS:protobuf-c>
 		$<TARGET_OBJECTS:pid>
 		$<TARGET_OBJECTS:lzma>
 		$<TARGET_OBJECTS:xyzmodem>
