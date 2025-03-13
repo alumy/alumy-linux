@@ -11,3 +11,6 @@
 	url = ../../protobuf-c/protobuf-c.git
 	branch = master
 
+[submodule "3rd-party/zlog"]
+	path = 3rd-party/zlog
+	url = ../../hardysimpson/zlog.git
