@@ -25,7 +25,6 @@ int32_t al_log_open(const char *ident, ...)
 {
 	const char *path = NULL;
 	const char *cat = NULL;
-
 	va_list ap;
 
 	va_start(ap, ident);
@@ -39,17 +38,17 @@ int32_t al_log_open(const char *ident, ...)
 		return -EINVAL;
 	}
 
-    if (zlog_init(path) != 0) {
-        fprintf(stderr, "zlog init failed\n");
-        return -1;
-    }
+	if (zlog_init(path) != 0) {
+		fprintf(stderr, "zlog init failed\n");
+		return -1;
+	}
 
-    zlog_cat = zlog_get_category(cat);
-    if (zlog_cat == NULL) {
+	zlog_cat = zlog_get_category(cat);
+	if (zlog_cat == NULL) {
 		fprintf(stderr, "zlog get cat fail\n");
 		zlog_fini();
 		return -1;
-    }
+	}
 
 	fprintf(stdout, "alumy log open succ\n");
 
