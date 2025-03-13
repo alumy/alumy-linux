@@ -10,6 +10,7 @@
 #include "alumy/types.h"
 #include "alumy/base.h"
 #include "alumy/log.h"
+#include "zlog.h"
 
 __BEGIN_DECLS
 
@@ -18,6 +19,7 @@ __BEGIN_DECLS
 static const char hex[] = "0123456789ABCDEF";
 
 static int32_t logmask = 0xFF;
+static zlog_category_t *zlog_cat = NULL;
 
 int32_t al_log_open(const char *ident, ...)
 {
@@ -37,6 +39,18 @@ int32_t al_log_open(const char *ident, ...)
 		return -EINVAL;
 	}
 
+    if (zlog_init(path) != 0) {
+        fprintf(stderr, "zlog init failed\n");
+        return -1;
+    }
+
+    zlog_cat = zlog_get_category(cat);
+    if (zlog_cat == NULL) {
+		fprintf(stderr, "zlog get cat fail\n");
+		zlog_fini();
+		return -1;
+    }
+
 	fprintf(stdout, "alumy log open succ\n");
 
 	return 0;
@@ -44,22 +58,62 @@ int32_t al_log_open(const char *ident, ...)
 
 int32_t al_log_close(void)
 {
+	zlog_fini();
     fprintf(stdout, "alumy log closed\n");
+
 	return 0;
 }
 
 __weak void al_vlog(int32_t pri, const char *fmt, va_list ap)
 {
-    FILE *stream = stdout;
+	if(zlog_cat == NULL) {
+		return;
+	}
 
-    if (pri == AL_LOG_EMERG || pri == AL_LOG_ERR ||
-        pri == AL_LOG_WARN || pri == AL_LOG_CRIT ||
-        pri == AL_LOG_ALERT) {
-        stream = stderr;
-    }
+	switch(pri) {
+		case AL_LOG_DEBUG:
+			zlog_debug(zlog_cat, "%s ", al_log_timestamp());
+			vzlog_debug(zlog_cat, fmt, ap);
+			break;
 
-    fprintf(stream, "%s ", al_log_timestamp());
-    vfprintf(stream, fmt, ap);
+		case AL_LOG_INFO:
+			zlog_info(zlog_cat, "%s ", al_log_timestamp());
+			vzlog_info(zlog_cat, fmt, ap);
+			break;
+
+		case AL_LOG_NOTICE:
+			zlog_notice(zlog_cat, "%s ", al_log_timestamp());
+			vzlog_notice(zlog_cat, fmt, ap);
+			break;
+
+		case AL_LOG_WARN:
+			zlog_warn(zlog_cat, "%s ", al_log_timestamp());
+			vzlog_warn(zlog_cat, fmt, ap);
+			break;
+
+		case AL_LOG_ERR:
+			zlog_error(zlog_cat, "%s ", al_log_timestamp());
+			vzlog_error(zlog_cat, fmt, ap);
+			break;
+
+		case AL_LOG_CRIT:
+			zlog_fatal(zlog_cat, "%s ", al_log_timestamp());
+			vzlog_fatal(zlog_cat, fmt, ap);
+			break;
+
+		case AL_LOG_ALERT:
+			zlog_fatal(zlog_cat, "%s ", al_log_timestamp());
+			vzlog_fatal(zlog_cat, fmt, ap);
+			break;
+
+		case AL_LOG_EMERG:
+			zlog_fatal(zlog_cat, "%s ", al_log_timestamp());
+			vzlog_fatal(zlog_cat, fmt, ap);
+			break;
+
+		default:
+			break;
+	}
 }
 
 __weak const char *al_log_timestamp(void)
