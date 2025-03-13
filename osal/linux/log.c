@@ -58,18 +58,17 @@ int32_t al_log_open(const char *ident, ...)
 int32_t al_log_close(void)
 {
 	zlog_fini();
-    fprintf(stdout, "alumy log closed\n");
+	fprintf(stdout, "alumy log closed\n");
 
 	return 0;
 }
 
 __weak void al_vlog(int32_t pri, const char *fmt, va_list ap)
 {
-	if(zlog_cat == NULL) {
+	if (zlog_cat == NULL)
 		return;
-	}
 
-	switch(pri) {
+	switch (pri) {
 		case AL_LOG_DEBUG:
 			zlog_debug(zlog_cat, "%s ", al_log_timestamp());
 			vzlog_debug(zlog_cat, fmt, ap);
