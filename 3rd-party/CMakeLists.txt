@@ -45,6 +45,7 @@ add_library(${target} OBJECT ${${target}_src})
 
 add_dependencies(${target} curl_proj)
 add_dependencies(${target} iniparser_proj)
+add_dependencies(${target} zlog_proj)
 
 target_include_directories(${target} PUBLIC
 	${CMAKE_CURRENT_BINARY_DIR}/install/include
