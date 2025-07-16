@@ -9,3 +9,4 @@ target_link_libraries(${target} PUBLIC unity)
 target_include_directories(${target} PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/CMock/src/)
 
+target_compile_options(${target} PRIVATE -fno-strict-aliasing)
